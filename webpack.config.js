@@ -41,8 +41,8 @@ const config = {
         exclude: /node_modules/
       },
       {
-        use: ['style-loader', 'css-loader'],
-        test: /\.css$/
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.scss$/
       },
       {
         loader: 'url-loader?limit=100000',

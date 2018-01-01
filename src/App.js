@@ -1,17 +1,20 @@
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import client from './apollo';
-import Home from './components/Home';
+import Router from './routes';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 const App = () => (
   <ApolloProvider client={client}>
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={Home} />
-      </Switch>
-    </BrowserRouter>
+    <div className="app">
+      <Header />
+      <div className="app-content">
+        <Router />
+      </div>
+      <Footer />
+    </div>
   </ApolloProvider>
 );
 
