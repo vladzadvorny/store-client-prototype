@@ -1,19 +1,14 @@
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
-import { ApolloLink } from 'apollo-link';
-import { withClientState } from 'apollo-link-state';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import merge from 'lodash.merge';
+import { ReduxCache } from 'apollo-cache-redux';
 
-import user from './resolvers/user';
+import store from './store';
 
 const httpLink = createHttpLink({ uri: 'http://localhost:3001/graphql' });
 
-const cache = new InMemoryCache();
-
-const stateLink = withClientState({ ...merge(user), cache });
+const cache = new ReduxCache({ store });
 
 export default new ApolloClient({
-  link: ApolloLink.from([stateLink, httpLink]),
+  link: httpLink,
   cache
 });

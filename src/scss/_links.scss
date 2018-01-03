@@ -1,0 +1,14 @@
+a {
+  color: $primaryColor;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+hr {
+  background-color: $greyColor;
+  height: 1px;
+  border: 0;
+}

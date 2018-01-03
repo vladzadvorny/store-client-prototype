@@ -1,0 +1,40 @@
+$blackColor: #333;
+$primaryColor: #0088cc;
+$secondaryColor: #a19679;
+$whiteColor: #fff;
+$greyColor: #e8e8e8;
+$freeSpace: 15px;
+$headerHeight: 49px;
+$footerHeight: 49px;
+$borderRadius: 4px;
+
+html {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  color: $blackColor;
+  padding-top: $headerHeight + $freeSpace;
+  background-color: $whiteColor;
+}
+
+body > div,
+.app {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@import 'reset';
+@import 'links';
+@import 'typography';
+@import 'grid';
+@import 'header';
+@import 'content';
+@import 'footer';
+@import 'forms';

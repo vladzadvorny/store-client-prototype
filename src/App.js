@@ -10,9 +10,7 @@ const App = () => (
   <ApolloProvider client={client}>
     <div className="app">
       <Header />
-      <div className="app-content">
-        <Router />
-      </div>
+      <Router />
       <Footer />
     </div>
   </ApolloProvider>

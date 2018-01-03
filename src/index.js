@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import './style.scss';
+import './scss/main.scss';
 
 const mountNode = document.createElement('div');
 document.body.appendChild(mountNode);

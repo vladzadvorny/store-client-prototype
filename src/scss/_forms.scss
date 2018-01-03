@@ -1,0 +1,38 @@
+button,
+.button {
+  color: $whiteColor;
+  background-color: $primaryColor;
+  border-radius: $borderRadius;
+  font-size: 15px;
+  border: 1px solid $primaryColor;
+  cursor: pointer;
+  height: 34px;
+  padding-left: $freeSpace;
+  padding-right: $freeSpace;
+  display: flex;
+  align-items: center;
+
+  &.inverse {
+    color: $primaryColor;
+    background-color: $whiteColor;
+  }
+
+  &.secondary {
+    background-color: $secondaryColor;
+    border: 1px solid $secondaryColor;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+  &:hover {
+    text-decoration: none;
+  }
+
+  &.small {
+    font-size: 12px;
+    padding-left: $freeSpace / 2;
+    padding-right: $freeSpace / 2;
+    height: 24px;
+  }
+}
