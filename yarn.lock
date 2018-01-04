@@ -1071,6 +1071,10 @@ brorand@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
 
+browser-locale@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/browser-locale/-/browser-locale-1.0.3.tgz#3c6646e6dd5f7a3c62ff51d4ae618a5dd3126911"
+
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/browserify-aes/-/browserify-aes-1.1.1.tgz#38b7ab55edb806ff2dcda1a7f1620773a477c49f"
@@ -2909,7 +2913,7 @@ hoek@4.x.x:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.0.tgz#72d9d0754f7fe25ca2d01ad8f8f9a9449a89526d"
 
-hoist-non-react-statics@^2.2.0, hoist-non-react-statics@^2.2.1, hoist-non-react-statics@^2.3.0:
+hoist-non-react-statics@^2.1.1, hoist-non-react-statics@^2.2.0, hoist-non-react-statics@^2.2.1, hoist-non-react-statics@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
 
@@ -4754,6 +4758,12 @@ react-apollo@^2.0.4:
     lodash.flowright "^3.5.0"
     lodash.pick "^4.4.0"
     prop-types "^15.5.8"
+
+react-click-outside@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-click-outside/-/react-click-outside-3.0.0.tgz#7a69a90d31b99204ef5d509cae91f52460d6fd69"
+  dependencies:
+    hoist-non-react-statics "^2.1.1"
 
 react-deep-force-update@^2.1.1:
   version "2.1.1"

@@ -10,6 +10,7 @@ $space-menu: 12px;
   height: $headerHeight;
   border-bottom: 1px solid $greyColor;
   font-size: 15px;
+  background-color: $whiteColor;
 
   .container {
     height: 100%;
@@ -23,19 +24,23 @@ $space-menu: 12px;
 
     li {
       display: flex;
-      padding-left: $space-menu;
-      padding-right: $space-menu;
+
       height: 100%;
       cursor: pointer;
       // transition: border-bottom 0.2s linear;
-      &:hover {
+      &:hover,
+      &.active {
         border-bottom: 3px solid $primaryColor;
       }
 
       a,
       span {
+        padding-left: $space-menu;
+        padding-right: $space-menu;
         line-height: $headerHeight;
         color: $primaryColor;
+        display: flex;
+        height: 100%;
         &:hover,
         &.active {
           text-decoration: none;
@@ -46,6 +51,7 @@ $space-menu: 12px;
     .dropdown {
       position: relative;
       display: inline-block;
+
       span {
         &::after {
           content: '↓';
@@ -56,15 +62,16 @@ $space-menu: 12px;
     }
 
     .dropdown-content {
-      display: none;
+      margin-top: 5px;
       position: absolute;
       min-width: 160px;
       box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
       z-index: 1;
       margin-left: -$space-menu + 1;
       background-color: $whiteColor;
+      padding: 2px;
       ul {
-        font-size: 13px;
+        font-size: 14px;
         &.two {
           columns: 2;
         }
