@@ -84,20 +84,6 @@ $space-menu: 12px;
           a,
           span {
             line-height: 30px;
-            &::after {
-              content: '';
-              margin-left: 0;
-            }
-            margin-left: 15px;
-            &.selected {
-              margin-left: 0;
-              &::before {
-                content: '✔';
-                width: 10px;
-                margin-right: 5px;
-                color: $secondaryColor;
-              }
-            }
           }
         }
       }
@@ -111,6 +97,25 @@ $space-menu: 12px;
 
         ul {
           display: table-cell;
+          li {
+            a,
+            span {
+              &::after {
+                content: '';
+                margin-left: 0;
+              }
+              margin-left: 15px;
+              &.selected {
+                margin-left: 0;
+                &::before {
+                  content: '✔';
+                  width: 10px;
+                  margin-right: 5px;
+                  color: $secondaryColor;
+                }
+              }
+            }
+          }
         }
 
         .title {

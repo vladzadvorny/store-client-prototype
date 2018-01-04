@@ -8,7 +8,9 @@ import {
   getActiveLanguage
 } from 'react-localize-redux';
 
-class Dropdown extends Component {
+import langs from '../../assets/languages';
+
+class Locale extends Component {
   state = {
     show: false
   };
@@ -28,11 +30,11 @@ class Dropdown extends Component {
     return (
       <li className={`dropdown locale ${show ? 'active' : null}`}>
         <span onClick={() => this.toggle()} role="presentation">
-          En
+          {currentLanguage.charAt(0).toUpperCase() + currentLanguage.slice(1)}
         </span>
         {show && (
           <div className="dropdown-content">
-            <ul>
+            <ul style={{ borderRight: '1px solid #e8e8e8' }}>
               <li className="title">{translate('interface')}</li>
               <hr />
               {languages.map(language => (
@@ -49,17 +51,14 @@ class Dropdown extends Component {
                       language.code === currentLanguage ? 'selected' : null
                     }
                   >
-                    {language.code}
+                    {langs[language.code][1]}
                   </span>
                 </li>
               ))}
             </ul>
             <ul>
-              <li className="title">world</li>
+              <li className="title">{translate('products')}</li>
               <hr />
-              <li>
-                <a href="/">hello</a>
-              </li>
               <li>
                 <a href="/">hello</a>
               </li>
@@ -82,5 +81,5 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  enhanceWithClickOutside(Dropdown)
+  enhanceWithClickOutside(Locale)
 );

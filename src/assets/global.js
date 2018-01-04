@@ -4,5 +4,6 @@ export default {
   singOut: ['Sign Out', 'Выйти'],
 
   // locale
-  interface: ['Interface', 'Интерфейс']
+  interface: ['Interface', 'Интерфейс'],
+  products: ['Products', 'Продукты']
 };

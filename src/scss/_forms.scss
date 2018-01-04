@@ -35,4 +35,9 @@ button,
     padding-right: $freeSpace / 2;
     height: 24px;
   }
+
+  svg {
+    fill: currentColor;
+    margin-left: 5px;
+  }
 }

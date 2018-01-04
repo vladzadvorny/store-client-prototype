@@ -24,15 +24,13 @@ class Header extends Component {
     this.setState({ popup: true });
   }
 
-  hidePopup(action) {
-    if (action === 'ok') {
-      console.log('ok');
-    }
+  hidePopup() {
     this.setState({ popup: !this.state.popup });
   }
 
   render() {
     const { me: { name, id }, translate } = this.props;
+
     const userMenu = [
       { name: 'Add', to: '/add' },
       { hr: true },
@@ -63,12 +61,7 @@ class Header extends Component {
             )}
           </ul>
         </div>
-        {this.state.popup && (
-          <Popup
-            hideOk={() => this.hidePopup('ok')}
-            hideCancel={() => this.hidePopup('cancel')}
-          />
-        )}
+        {this.state.popup && <Popup cancel={() => this.hidePopup()} />}
       </header>
     );
   }

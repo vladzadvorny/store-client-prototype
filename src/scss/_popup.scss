@@ -12,12 +12,28 @@
   display: flex;
 
   .inner {
-    height: 250px;
     width: 400px;
     background: white;
     border-radius: $borderRadius;
     padding: $freeSpace;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .button {
+      width: auto;
+      display: flex;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      height: 50px;
+    }
+    .bottom {
+      padding-top: $freeSpace;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid $greyColor;
+    }
   }
   /* Landscape phones and smaller */
   @media (max-width: 480px) {
