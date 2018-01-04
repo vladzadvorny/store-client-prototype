@@ -81,8 +81,45 @@ $space-menu: 12px;
             border-bottom: 0;
             background-color: $greyColor;
           }
-          a {
+          a,
+          span {
             line-height: 30px;
+            &::after {
+              content: '';
+              margin-left: 0;
+            }
+            margin-left: 15px;
+            &.selected {
+              margin-left: 0;
+              &::before {
+                content: '✔';
+                width: 10px;
+                margin-right: 5px;
+                color: $secondaryColor;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .locale {
+      margin-right: $freeSpace;
+      .dropdown-content {
+        margin-left: -100px;
+        display: table;
+
+        ul {
+          display: table-cell;
+        }
+
+        .title {
+          line-height: 30px;
+          padding-left: $space-menu;
+          padding-right: $space-menu;
+          &:hover {
+            background-color: $whiteColor;
+            cursor: default;
           }
         }
       }
