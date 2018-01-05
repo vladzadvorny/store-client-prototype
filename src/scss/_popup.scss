@@ -33,6 +33,14 @@
       display: flex;
       justify-content: space-between;
       border-top: 1px solid $greyColor;
+      align-items: center;
+    }
+    input[disabled] {
+      text-align: center;
+      width: 100px;
+      font-size: 16px;
+      margin-top: -5px;
+      background-color: #eee;
     }
   }
   /* Landscape phones and smaller */

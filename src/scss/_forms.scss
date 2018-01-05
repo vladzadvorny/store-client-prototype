@@ -41,3 +41,14 @@ button,
     margin-left: 5px;
   }
 }
+
+input {
+  border: 1px solid $greyColor;
+  border-radius: $borderRadius;
+  padding: 7px $freeSpace;
+  font-size: 15px;
+  margin-bottom: 1.3em;
+  &:disabled {
+    background-color: $greyColor;
+  }
+}
