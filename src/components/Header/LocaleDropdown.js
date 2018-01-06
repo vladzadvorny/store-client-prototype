@@ -10,7 +10,7 @@ import {
 
 import langs from '../../assets/languages';
 
-class Locale extends Component {
+class LocaleDropdown extends Component {
   state = {
     show: false
   };
@@ -81,5 +81,5 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  enhanceWithClickOutside(Locale)
+  enhanceWithClickOutside(LocaleDropdown)
 );

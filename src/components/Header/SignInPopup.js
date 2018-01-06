@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
-import { graphql, compose } from 'react-apollo';
+import { graphql, compose, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
+import decode from 'jwt-decode';
 
 import Plane from '../../components/Plane';
+import { signIn } from '../../actions';
 
-class Popup extends Component {
+class SignInPopup extends Component {
   state = {
     time: 60
   };
@@ -17,7 +19,54 @@ class Popup extends Component {
 
   componentWillReceiveProps(newProps) {
     if (!newProps.data.loading) {
-      this.setState({ time: newProps.data.authCode.time });
+      const { time, code } = newProps.data.authCode;
+
+      if (this.props.data.authCode === undefined) {
+        this.setState({
+          time
+        });
+        this.getTokensTimer(true, code);
+      }
+    }
+  }
+
+  getTokensTimer(start, code = '') {
+    const { client: { query }, cancel, SignIn } = this.props;
+    if (start) {
+      this.g = setInterval(async () => {
+        const tokens = await query({
+          query: gql`
+            query($code: String!) {
+              signIn(code: $code) {
+                token
+                refreshToken
+              }
+            }
+          `,
+          fetchPolicy: 'network-only',
+          variables: {
+            code
+          }
+        });
+
+        const { token, refreshToken } = tokens.data.signIn;
+        // console.log(token, refreshToken);
+        if (token && refreshToken) {
+          // set local storage
+          localStorage.setItem('token', token);
+          localStorage.setItem('refreshToken', refreshToken);
+
+          const { user } = await decode(token);
+
+          SignIn(user);
+          // get
+          this.timer(false);
+          this.getTokensTimer(false);
+          cancel();
+        }
+      }, 2000);
+    } else {
+      clearInterval(this.g);
     }
   }
 
@@ -33,6 +82,7 @@ class Popup extends Component {
       }, 1000);
     } else {
       clearInterval(this.t);
+      this.getTokensTimer(false);
       this.setState({ time: 60 });
     }
   }
@@ -48,7 +98,7 @@ class Popup extends Component {
       <div className="popup">
         <div className="inner">
           <h3>{translate('signInwithTelegram')}</h3>
-          <p>Go to the bot and click start.</p>
+          <p>{translate('goToTheBotAndClickStart')}.</p>
 
           <p>
             <a
@@ -61,7 +111,7 @@ class Popup extends Component {
             </a>
           </p>
           <p>
-            Or send this message to{' '}
+            {translate('orSendThisMessageTo')}{' '}
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -72,18 +122,21 @@ class Popup extends Component {
           </p>
 
           <input type="text" value={authCode.code} disabled />
+
           <div className="bottom">
             <button
               className="secondary"
               onClick={() => {
                 cancel();
                 this.timer(false);
+                this.getTokensTimer(false);
               }}
             >
-              Cancel
+              {translate('cancel')} ({time})
             </button>
-            <span className="timer">
-              left <b>:{time}</b>
+            <span className="font_small">
+              {translate('ifTheAuthorizationDoesNotPassAutomatically')},{' '}
+              <span className="link">{translate('clickHere')}</span>.
             </span>
           </div>
         </div>
@@ -105,7 +158,12 @@ const mapStateToProps = state => ({
   translate: getTranslate(state.locale)
 });
 
+const mapDispatchToProps = {
+  SignIn: signIn
+};
+
 export default compose(
-  connect(mapStateToProps, null),
+  withApollo,
+  connect(mapStateToProps, mapDispatchToProps),
   graphql(authCode, { options: { fetchPolicy: 'network-only' } })
-)(Popup);
+)(SignInPopup);

@@ -34,13 +34,20 @@
       justify-content: space-between;
       border-top: 1px solid $greyColor;
       align-items: center;
+      .font_small {
+        width: 200px;
+        display: block;
+      }
+    }
+    p {
+      text-align: center;
     }
     input[disabled] {
       text-align: center;
       width: 100px;
       font-size: 16px;
       margin-top: -5px;
-      background-color: #eee;
+      background-color: #f8f8f8;
     }
   }
   /* Landscape phones and smaller */

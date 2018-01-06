@@ -84,6 +84,10 @@ $space-menu: 12px;
           a,
           span {
             line-height: 30px;
+            &::after {
+              content: '';
+              margin-left: 0;
+            }
           }
         }
       }
@@ -100,10 +104,6 @@ $space-menu: 12px;
           li {
             a,
             span {
-              &::after {
-                content: '';
-                margin-left: 0;
-              }
               margin-left: 15px;
               &.selected {
                 margin-left: 0;

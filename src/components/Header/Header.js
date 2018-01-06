@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
 
-import { signIn, signOut } from '../../actions';
 import Dropdown from './Dropdown';
-import Locale from './Locale';
-import Popup from './Popup';
+import LocaleDropdown from './LocaleDropdown';
+import UserDropdown from './UserDropdown';
+import SignInPopup from './SignInPopup';
 
 const test = [
   { name: 'Hello', to: '/test' },
@@ -31,11 +31,6 @@ class Header extends Component {
   render() {
     const { me: { name, id }, translate } = this.props;
 
-    const userMenu = [
-      { name: 'Add', to: '/add' },
-      { hr: true },
-      { name: translate('singOut'), to: '/signout' }
-    ];
     return (
       <header className="header">
         <div className="container">
@@ -49,9 +44,9 @@ class Header extends Component {
             <Dropdown name="Protocol" items={test} two />
           </ul>
           <ul className="menu">
-            <Locale />
+            <LocaleDropdown />
             {name && id ? (
-              <Dropdown name={name} items={userMenu} />
+              <UserDropdown />
             ) : (
               <li>
                 <span onClick={() => this.showPopup()} role="presentation">
@@ -61,7 +56,7 @@ class Header extends Component {
             )}
           </ul>
         </div>
-        {this.state.popup && <Popup cancel={() => this.hidePopup()} />}
+        {this.state.popup && <SignInPopup cancel={() => this.hidePopup()} />}
       </header>
     );
   }
@@ -72,9 +67,4 @@ const mapStateToProps = state => ({
   me: state.me
 });
 
-const mapDispatchToProps = {
-  signIn,
-  signOut
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, null)(Header);
