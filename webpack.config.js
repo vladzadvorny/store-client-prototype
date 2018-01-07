@@ -2,6 +2,27 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const _ = require('lodash');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
+const { dependencies } = require('./package.json');
+
+// const VENDOR = _.without(
+//   _.keys(dependencies),
+//   'faker',
+//   'react-stars',
+//   'react-hot-loader',
+//   'graphql'
+// );
+
+const VENDOR = [
+  'react',
+  'react-dom',
+  'react-localize-redux',
+  'react-redux',
+  'react-router-dom',
+  'redux'
+];
 
 const env = process.env.NODE_ENV || 'development';
 const __DEV__ = env === 'development';
@@ -13,7 +34,8 @@ const port = process.env.PORT || 3000;
 const config = {
   entry: __PROD__
     ? {
-        bundle: './src/index.js'
+        bundle: './src/index.js',
+        vendor: VENDOR
       }
     : {
         bundle: [
@@ -21,6 +43,7 @@ const config = {
           './src/index.js',
           'webpack/hot/only-dev-server'
         ],
+        vendor: VENDOR,
         devServerClient: `webpack-dev-server/client?http://localhost:${port}`
       },
   output: {
@@ -59,7 +82,7 @@ const config = {
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['manifest']
+      names: ['vendor', 'manifest']
     }),
     new CopyWebpackPlugin([
       // relative path is from src
@@ -79,6 +102,14 @@ const config = {
 
 if (__DEV__) {
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
+}
+
+if (__PROD__) {
+  config.plugins.push(
+    new BundleAnalyzerPlugin({
+      analyzerPort: 3332
+    })
+  );
 }
 
 module.exports = config;

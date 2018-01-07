@@ -23,5 +23,6 @@ export default {
   ifTheAuthorizationDoesNotPassAutomatically: [
     'If the authorization does not pass automatically',
     'Если авторизация не прошла автоматически'
-  ]
+  ],
+  codeNotReceived: ['Code not received', 'Код не получен']
 };

@@ -10,7 +10,8 @@ import { signIn } from '../../actions';
 
 class SignInPopup extends Component {
   state = {
-    time: 60
+    time: 60,
+    errorDisplay: false
   };
 
   componentDidMount() {
@@ -30,43 +31,59 @@ class SignInPopup extends Component {
     }
   }
 
-  getTokensTimer(start, code = '') {
+  async getTokens(code) {
     const { client: { query }, cancel, SignIn } = this.props;
-    if (start) {
-      this.g = setInterval(async () => {
-        const tokens = await query({
-          query: gql`
-            query($code: String!) {
-              signIn(code: $code) {
-                token
-                refreshToken
-              }
-            }
-          `,
-          fetchPolicy: 'network-only',
-          variables: {
-            code
+    const tokens = await query({
+      query: gql`
+        query($code: String!) {
+          signIn(code: $code) {
+            token
+            refreshToken
           }
-        });
-
-        const { token, refreshToken } = tokens.data.signIn;
-        // console.log(token, refreshToken);
-        if (token && refreshToken) {
-          // set local storage
-          localStorage.setItem('token', token);
-          localStorage.setItem('refreshToken', refreshToken);
-
-          const { user } = await decode(token);
-
-          SignIn(user);
-          // get
-          this.timer(false);
-          this.getTokensTimer(false);
-          cancel();
         }
-      }, 2000);
+      `,
+      fetchPolicy: 'network-only',
+      variables: {
+        code
+      }
+    });
+
+    const { token, refreshToken } = tokens.data.signIn;
+    // console.log(token, refreshToken);
+    if (token && refreshToken) {
+      // set local storage
+      localStorage.setItem('token', token);
+      localStorage.setItem('refreshToken', refreshToken);
+
+      const { user } = await decode(token);
+
+      SignIn(user);
+      // get
+      this.timer(false);
+      this.getTokensTimer(false);
+      cancel();
+
+      return true;
+    }
+    return false;
+  }
+
+  getTokensTimer(start, code = '') {
+    if (start) {
+      this.g = setInterval(() => this.getTokens(code), 3000);
     } else {
       clearInterval(this.g);
+    }
+  }
+
+  async checkTokens(code) {
+    const getResult = await this.getTokens(code);
+
+    if (!getResult) {
+      this.setState({ errorDisplay: true });
+      setTimeout(() => {
+        this.setState({ errorDisplay: false });
+      }, 4000);
     }
   }
 
@@ -89,7 +106,7 @@ class SignInPopup extends Component {
 
   render() {
     const { cancel, translate, data: { loading, authCode } } = this.props;
-    const { time } = this.state;
+    const { time, errorDisplay } = this.state;
     if (loading) {
       return null;
     }
@@ -122,6 +139,12 @@ class SignInPopup extends Component {
           </p>
 
           <input type="text" value={authCode.code} disabled />
+          <p
+            className="error"
+            style={{ display: errorDisplay ? 'inline' : 'none' }}
+          >
+            {translate('codeNotReceived')}
+          </p>
 
           <div className="bottom">
             <button
@@ -136,7 +159,13 @@ class SignInPopup extends Component {
             </button>
             <span className="font_small">
               {translate('ifTheAuthorizationDoesNotPassAutomatically')},{' '}
-              <span className="link">{translate('clickHere')}</span>.
+              <span
+                className="link"
+                onClick={() => this.checkTokens(authCode.code)}
+                role="presentation"
+              >
+                {translate('clickHere')}
+              </span>.
             </span>
           </div>
         </div>
