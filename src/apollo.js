@@ -12,7 +12,8 @@ const httpLink = createHttpLink({ uri: 'http://localhost:3001/graphql' });
 const middlewareLink = setContext(() => ({
   headers: {
     'x-token': localStorage.getItem('token'),
-    'x-refresh-token': localStorage.getItem('refreshToken')
+    'x-refresh-token': localStorage.getItem('refreshToken'),
+    'x-locale': localStorage.getItem('locale')
   }
 }));
 

@@ -18,16 +18,14 @@ const ratingChanged = newRating => {
 };
 
 export default () => (
-  <div className="content">
-    <div className="container">
-      {cards.map((card, i) => (
-        <div key={i} className="item">
-          <b>{card.name}</b>
-          <br />
-          <p>{card.description}</p>
-          <div className="card-bottom" />
-        </div>
-      ))}
-    </div>
+  <div className="container">
+    {cards.map((card, i) => (
+      <div key={i} className="item">
+        <b>{card.name}</b>
+        <br />
+        <p>{card.description}</p>
+        <div className="card-bottom" />
+      </div>
+    ))}
   </div>
 );

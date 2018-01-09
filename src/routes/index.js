@@ -5,15 +5,19 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer';
 import Home from './Home';
 import Test from './Test';
+import Admin from './Admin';
 
 export default () => (
   <BrowserRouter>
     <div className="app">
       <Header />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/test" exact component={Test} />
-      </Switch>
+      <div className="content">
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/test" exact component={Test} />
+          <Route path="/admin" component={Admin} />
+        </Switch>
+      </div>
       <Footer />
     </div>
   </BrowserRouter>

@@ -70,8 +70,8 @@ $space-menu: 12px;
       margin-left: -$space-menu + 1;
       background-color: $whiteColor;
       padding: 2px;
+      font-size: 14px;
       ul {
-        font-size: 14px;
         &.two {
           columns: 2;
         }
@@ -96,11 +96,19 @@ $space-menu: 12px;
     .locale {
       margin-right: $freeSpace;
       .dropdown-content {
-        margin-left: -100px;
-        display: table;
+        margin-left: -140px;
+
+        table {
+          border-collapse: collapse;
+          border-style: hidden;
+
+          td {
+            border: 1px solid $greyColor;
+            vertical-align: top;
+          }
+        }
 
         ul {
-          display: table-cell;
           li {
             a,
             span {
@@ -119,12 +127,10 @@ $space-menu: 12px;
         }
 
         .title {
-          line-height: 30px;
-          padding-left: $space-menu;
-          padding-right: $space-menu;
-          &:hover {
-            background-color: $whiteColor;
-            cursor: default;
+          td {
+            padding-left: $space-menu;
+            padding-right: $space-menu;
+            line-height: 30px;
           }
         }
       }

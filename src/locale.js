@@ -3,6 +3,23 @@ import getLocale from 'browser-locale';
 
 import globalTranslation from './assets/global';
 
+export const getStorageLocale = () => {
+  const init = { interface: 'en', products: ['en'] };
+
+  let storage = localStorage.getItem('locale');
+
+  if (!storage) return init;
+  try {
+    storage = JSON.parse(storage);
+  } catch (error) {
+    return init;
+  }
+  return storage;
+};
+
+export const setStorageLocale = obj =>
+  localStorage.setItem('locale', JSON.stringify(obj));
+
 export default store => {
   const languages = ['en', 'ru'];
 
@@ -11,8 +28,14 @@ export default store => {
     .toLowerCase();
   locale = languages.indexOf(locale) === -1 ? languages[0] : locale;
 
-  let storage = localStorage.getItem('locale');
-  storage = languages.indexOf(storage) === -1 ? null : storage;
+  let storage;
+  storage = getStorageLocale();
+  if ('interface' in storage) {
+    storage =
+      languages.indexOf(storage.interface) === -1 ? null : storage.interface;
+  } else {
+    storage = null;
+  }
 
   store.dispatch(
     initialize(languages, {

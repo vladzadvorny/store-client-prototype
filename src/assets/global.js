@@ -8,7 +8,7 @@ export default {
 
   // locale
   interface: ['Interface', 'Интерфейс'],
-  products: ['Products', 'Продукты'],
+  productLanguages: ['Product languages', 'Языки продуктов'],
 
   // popup
   signInwithTelegram: ['SignIn with Telegram', 'Вход через Телеграм'],

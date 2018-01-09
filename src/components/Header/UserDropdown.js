@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import enhanceWithClickOutside from 'react-click-outside';
 import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
+import { Link } from 'react-router-dom';
 
 import { signOut } from '../../actions';
 
@@ -35,8 +36,15 @@ class UserDropdown extends Component {
           {name}
         </span>
         {show && (
-          <div className="dropdown-content">
+          <div
+            className="dropdown-content"
+            onClick={() => this.toggle()}
+            role="presentation"
+          >
             <ul>
+              <li>
+                <Link to="/admin">Admin</Link>
+              </li>
               <li>
                 <a href="">Add</a>
               </li>

@@ -48,7 +48,8 @@ const config = {
       },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: __PROD__ ? '[name].[chunkhash].js' : '[name].js'
+    filename: __PROD__ ? '[name].[chunkhash].js' : '[name].js',
+    publicPath: '/'
   },
   devServer: {
     hot: true,
