@@ -12,6 +12,10 @@ import gql from 'graphql-tag';
 
 import langs from '../../assets/languages';
 import { getStorageLocale, setStorageLocale } from '../../locale';
+import {
+  refetchInterface as RefetchInterface,
+  refetchProducts as RefetchProducts
+} from '../../actions';
 
 class LocaleDropdown extends Component {
   state = {
@@ -50,7 +54,9 @@ class LocaleDropdown extends Component {
       languages,
       currentLanguage,
       setLanguage,
-      data: { loading, productLangs }
+      data: { loading, productLangs },
+      refetchInterface,
+      refetchProducts
     } = this.props;
 
     if (loading) {
@@ -83,6 +89,7 @@ class LocaleDropdown extends Component {
                             const locale = getStorageLocale();
                             locale.interface = language.code;
                             setStorageLocale(locale);
+                            refetchInterface();
                           }}
                         >
                           <span
@@ -104,7 +111,10 @@ class LocaleDropdown extends Component {
                         <li
                           key={i}
                           role="presentation"
-                          onClick={() => this.setStorageProductLangs(item)}
+                          onClick={() => {
+                            this.setStorageProductLangs(item);
+                            refetchProducts();
+                          }}
                         >
                           <span
                             className={
@@ -142,7 +152,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  setLanguage: setActiveLanguage
+  setLanguage: setActiveLanguage,
+  refetchInterface: RefetchInterface,
+  refetchProducts: RefetchProducts
 };
 
 export default compose(

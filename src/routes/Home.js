@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import { connect } from 'react-redux';
+
 import Plane from '../components/Plane';
 
 class Home extends Component {
+  componentWillReceiveProps(newProps) {
+    const { refetchProducts, data: { refetch } } = this.props;
+    if (newProps.refetchProducts > refetchProducts) {
+      refetch();
+    }
+  }
+
   render() {
-    const { products = [] } = this.props.data;
+    const { data: { loading, products } } = this.props;
+    if (loading) {
+      return null;
+    }
     return (
       <div>
-        <button className="inverse">
+        <button className="inverse" onClick={() => this.props.data.refetch()}>
           Hello
           <Plane size="19" />
         </button>
@@ -33,4 +45,13 @@ const productsQuery = gql`
   }
 `;
 
-export default graphql(productsQuery)(Home);
+const mapStateToProps = state => ({
+  refetchProducts: state.refetch.products
+});
+
+const mapDispatchToProps = {};
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  graphql(productsQuery)
+)(Home);
