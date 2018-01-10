@@ -19,7 +19,16 @@ const Categories = ({
   return loading ? null : (
     <div className="container">
       <div className="row">
-        <h2 className="title">Categories for {type}</h2>
+        <h2 className="title">
+          {`${type.charAt(0).toUpperCase() + type.slice(1)}'`}s categories
+        </h2>
+        <ul style={{ listStyle: 'none', display: 'flex', marginBottom: 15 }}>
+          {types.map((t, i) => (
+            <li style={{ marginRight: 10 }} key={i}>
+              {t !== type ? <Link to={`/admin/categories/${t}`}>{t}</Link> : t}
+            </li>
+          ))}
+        </ul>
 
         <ul style={{ listStyle: 'none', fontSize: 15, marginBottom: 15 }}>
           {categories.map(u => (

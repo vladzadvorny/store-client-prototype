@@ -52,7 +52,6 @@ input {
   overflow: hidden;
   position: relative;
   width: 100%;
-  margin-bottom: 1.3em;
   padding-left: 10px;
   padding-right: 10px;
   font-size: 12px;
@@ -92,4 +91,16 @@ input {
 
 form {
   width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.3em;
+
+  label {
+    font-weight: bold;
+    margin-bottom: 1px;
+    margin-left: 2px;
+  }
 }

@@ -33,4 +33,10 @@
     margin-right: 15px;
     border-radius: $borderRadius;
   }
+
+  .wrapper {
+    border: 1px solid $greyColor;
+    padding: $freeSpace;
+    margin-bottom: $freeSpace;
+  }
 }

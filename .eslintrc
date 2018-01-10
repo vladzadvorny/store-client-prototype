@@ -7,7 +7,14 @@
     "react/prefer-stateless-function": [0],
     "react/prop-types": [0],
     "jsx-a11y/anchor-is-valid": [0],
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "required": { "every": ["nesting"] },
+        "allowChildren": true
+      }
+    ]
   },
   "env": {
     "browser": true

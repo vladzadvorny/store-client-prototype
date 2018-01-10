@@ -1,3 +1,5 @@
+export const site = ['en', 'ru', 'fr', 'es', 'de'];
+
 export default {
   aa: ['Afar', 'Afar'],
   ab: ['Abkhazian', 'Аҧсуа'],
