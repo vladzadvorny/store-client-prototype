@@ -7,6 +7,7 @@ import Сategories from './Сategories';
 export default () => (
   <Switch>
     <Route exact path="/admin" component={Admin} />
-    <Route exact path="/admin/categories" component={Сategories} />
+    <Route exact path="/admin/categories/edit/:id" component={Сategories} />
+    <Route exact path="/admin/categories/:type" component={Сategories} />
   </Switch>
 );

@@ -66,7 +66,7 @@ const config = {
       },
       {
         use: ['style-loader', 'css-loader', 'sass-loader'],
-        test: /\.scss$/
+        test: /\.(scss|css)$/
       },
       {
         loader: 'url-loader?limit=100000',

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+
+import '../node_modules/react-select/dist/react-select.css';
 import './scss/main.scss';
 
 const mountNode = document.createElement('div');

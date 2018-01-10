@@ -43,12 +43,53 @@ button,
 }
 
 input {
-  border: 1px solid $greyColor;
+  background-color: $whiteColor;
   border-radius: $borderRadius;
-  padding: 7px $freeSpace;
-  font-size: 15px;
+  border: 1px solid $greyColor;
+  display: table;
+  border-collapse: separate;
+  height: 36px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
   margin-bottom: 1.3em;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+
   &:disabled {
     background-color: $greyColor;
   }
+
+  &:hover {
+    box-shadow: 0;
+  }
+  &:focus {
+    border-color: #a19679;
+  }
+}
+
+.Select-control {
+  border-color: $greyColor;
+  margin-bottom: 1.3em;
+}
+
+.Select-input {
+  input {
+    padding-top: 0px;
+    &:focus {
+      border: 0;
+    }
+  }
+}
+
+.Select.is-open > .Select-control {
+  border-color: #a19679;
+}
+.Select-menu-outer {
+  border-color: #a19679;
+}
+
+form {
+  width: 100%;
 }

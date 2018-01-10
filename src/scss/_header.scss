@@ -11,6 +11,7 @@ $space-menu: 12px;
   border-bottom: 1px solid $greyColor;
   font-size: 15px;
   background-color: $whiteColor;
+  z-index: 1000;
 
   .container {
     height: 100%;
@@ -66,11 +67,11 @@ $space-menu: 12px;
       position: absolute;
       min-width: 160px;
       box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
-      z-index: 1;
       margin-left: -$space-menu + 1;
       background-color: $whiteColor;
       padding: 2px;
       font-size: 14px;
+
       ul {
         &.two {
           columns: 2;
