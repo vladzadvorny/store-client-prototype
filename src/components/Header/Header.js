@@ -6,6 +6,7 @@ import Dropdown from './Dropdown';
 import LocaleDropdown from './LocaleDropdown';
 import UserDropdown from './UserDropdown';
 import SignInPopup from './SignInPopup';
+import SectionsDropdown from './SectionsDropdown';
 
 const test = [
   { name: 'Hello', to: '/test' },
@@ -35,9 +36,7 @@ class Header extends Component {
       <header className="header">
         <div className="container">
           <ul className="menu">
-            <li>
-              <a href="#">Home</a>
-            </li>
+            <SectionsDropdown />
             <li>
               <a href="#">FAQ</a>
             </li>

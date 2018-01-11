@@ -3,10 +3,10 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import map from 'lodash.map';
 import diff from 'lodash.difference';
-import { Link } from 'react-router-dom';
 
 import FormGroup from '../../components/FormGroup';
-import langs, { site } from '../../assets/languages';
+import langs from '../../assets/languages';
+import { languages } from '../../config';
 
 class EditCategoty extends Component {
   state = {
@@ -43,7 +43,7 @@ class EditCategoty extends Component {
       <div className="container">
         <div className="row">
           <h2 className="title">
-            Edit <i>{id}</i> category
+            Edit <i style={{ color: '#98fb98', fontSize: 20 }}>{id}</i> category
           </h2>
           <button
             style={{ marginBottom: 15 }}
@@ -102,7 +102,7 @@ class EditCategoty extends Component {
               </div>
             ))}
             <div style={{ display: 'flex' }}>
-              {diff(site, map(names, 'lang')).map((lang, i) => (
+              {diff(languages, map(names, 'lang')).map((lang, i) => (
                 <button
                   style={{ marginRight: 10 }}
                   className="small secondary"

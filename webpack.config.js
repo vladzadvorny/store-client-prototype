@@ -77,6 +77,7 @@ const config = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env),
+      'process.env.BROWSER': true,
       __PROD__,
       __TEST__,
       __DEV__

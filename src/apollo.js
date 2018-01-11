@@ -3,11 +3,12 @@ import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import store from './store';
 
+import { uri } from './config';
+import store from './store';
 import { signOut } from './actions';
 
-const httpLink = createHttpLink({ uri: 'http://localhost:3001/graphql' });
+const httpLink = createHttpLink({ uri });
 
 const middlewareLink = setContext(() => ({
   headers: {

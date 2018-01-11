@@ -138,7 +138,12 @@ class SignInPopup extends Component {
             </a>:
           </p>
 
-          <input type="text" value={authCode.code} disabled />
+          <input
+            style={{ marginBottom: 15 }}
+            type="text"
+            value={authCode.code}
+            disabled
+          />
           <p
             className="error"
             style={{ display: errorDisplay ? 'inline' : 'none' }}

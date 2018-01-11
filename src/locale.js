@@ -2,6 +2,7 @@ import { initialize, addTranslation } from 'react-localize-redux';
 import getLocale from 'browser-locale';
 
 import globalTranslation from './assets/global';
+import { languages } from './config';
 
 export const getStorageLocale = () => {
   const init = { interface: 'en', products: ['en'] };
@@ -21,8 +22,6 @@ export const setStorageLocale = obj =>
   localStorage.setItem('locale', JSON.stringify(obj));
 
 export default store => {
-  const languages = ['en', 'ru'];
-
   let locale = getLocale()
     .split('-')[0]
     .toLowerCase();

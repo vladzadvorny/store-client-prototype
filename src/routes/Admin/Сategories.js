@@ -3,7 +3,7 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 
-import types from '../../assets/types';
+import { types } from '../../config';
 
 const Categories = ({
   createCategory,
