@@ -2,19 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
 
-import Dropdown from './Dropdown';
+import CategoriesDropdown from './CategoriesDropdown';
 import LocaleDropdown from './LocaleDropdown';
 import UserDropdown from './UserDropdown';
 import SignInPopup from './SignInPopup';
 import SectionsDropdown from './SectionsDropdown';
-
-const test = [
-  { name: 'Hello', to: '/test' },
-  { name: 'Hello', to: '/test' },
-  { name: 'Hellosdfasdfasdf', to: '/test' },
-  { name: 'Hello', to: '/test' },
-  { name: 'Hello', to: '/test' }
-];
 
 class Header extends Component {
   state = {
@@ -30,17 +22,17 @@ class Header extends Component {
   }
 
   render() {
-    const { me: { name, id }, translate } = this.props;
+    const { me: { name, id }, translate, location } = this.props;
 
     return (
       <header className="header">
         <div className="container">
           <ul className="menu">
-            <SectionsDropdown />
-            <li>
+            <SectionsDropdown location={location} />
+            {/* <li>
               <a href="#">FAQ</a>
-            </li>
-            <Dropdown name="Protocol" items={test} two />
+            </li> */}
+            <CategoriesDropdown location={location} />
           </ul>
           <ul className="menu">
             <LocaleDropdown />
@@ -63,7 +55,9 @@ class Header extends Component {
 
 const mapStateToProps = state => ({
   translate: getTranslate(state.locale),
-  me: state.me
+  me: state.me,
+  location: state.router.location.pathname
+  // location: state.router.location.pathname.split('/')[1]
 });
 
 export default connect(mapStateToProps, null)(Header);

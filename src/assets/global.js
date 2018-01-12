@@ -20,7 +20,7 @@ export default {
     'انقر هنا',
     '여기를 클릭하십시오'
   ],
-  // me
+  // Header
   signIn: [
     'Sign In',
     'Войти',
@@ -38,6 +38,61 @@ export default {
     'Ausloggen',
     'خروج',
     '로그 아웃'
+  ],
+  home: [
+    'Home',
+    'На главную',
+    "Page d'accueil",
+    'Pagina principal',
+    'Hauptseite',
+    'الصفحة الرئيسية',
+    '메인 페이지'
+  ],
+  allSections: [
+    'All sections',
+    'Все разделы',
+    'Toutes les sections',
+    'Todas las secciones',
+    'Alle Abschnitte',
+    'جميع الأقسام',
+    '모든 섹션'
+  ],
+  allCategories: [
+    'All categories',
+    'Все категории',
+    'Toutes catégories',
+    'Todas las categorias',
+    'Alle Kategorien',
+    'جميع الفئات',
+    '모든 카테고리'
+  ],
+  bots: ['Bots', 'Боты', 'Bots', 'Bots', 'Bots', 'السير', '봇'],
+  channels: [
+    'Channels',
+    'Каналы',
+    'Chaînes',
+    'Canales',
+    'Kanäle',
+    'قنوات',
+    '채널'
+  ],
+  groups: [
+    'Groups',
+    'Группы',
+    'Groupes',
+    'Grupos',
+    'Gruppen',
+    'المجموعات',
+    '여러 떼'
+  ],
+  stickers: [
+    'Stickers',
+    'Стикеры',
+    'Autocollants',
+    'Pegatinas',
+    'Aufkleber',
+    'ملصقات',
+    '스티커'
   ],
 
   // locale

@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Home from './Home';
 import Test from './Test';
 import Admin from './Admin';
+import Section from './Section';
 
 export default () => (
   <div className="app">
@@ -15,6 +16,7 @@ export default () => (
         <Route path="/" exact component={Home} />
         <Route path="/test" exact component={Test} />
         <Route path="/admin" component={Admin} />
+        <Route path="/:section" exact component={Section} />
       </Switch>
     </div>
     <Footer />

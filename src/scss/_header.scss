@@ -78,6 +78,8 @@ $space-menu: 12px;
         }
 
         li {
+          width: 100%;
+          white-space: nowrap;
           &:hover {
             border-bottom: 0;
             background-color: $greyColor;
@@ -110,6 +112,7 @@ $space-menu: 12px;
         }
 
         ul {
+          min-width: 110px;
           li {
             a,
             span {
