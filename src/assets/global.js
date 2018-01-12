@@ -39,6 +39,15 @@ export default {
     'خروج',
     '로그 아웃'
   ],
+  addProduct: [
+    'Add product',
+    'Добавить продукт',
+    'Ajouter un produit',
+    'Agregar producto',
+    'Produkt hinzufügen',
+    'إضافة منتج',
+    '제품 추가'
+  ],
   home: [
     'Home',
     'На главную',

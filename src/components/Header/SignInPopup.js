@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getTranslate } from 'react-localize-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { graphql, compose, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 import decode from 'jwt-decode';
@@ -105,7 +105,12 @@ class SignInPopup extends Component {
   }
 
   render() {
-    const { cancel, translate, data: { loading, authCode } } = this.props;
+    const {
+      cancel,
+      translate,
+      currentLanguage,
+      data: { loading, authCode }
+    } = this.props;
     const { time, errorDisplay } = this.state;
     if (loading) {
       return null;
@@ -160,7 +165,8 @@ class SignInPopup extends Component {
                 this.getTokensTimer(false);
               }}
             >
-              {translate('cancel')} ({time})
+              {translate('cancel')}
+              {currentLanguage === 'ar' ? `  ${time}` : ` (${time})`}
             </button>
             <span className="font_small">
               {translate('ifTheAuthorizationDoesNotPassAutomatically')},{' '}
@@ -189,7 +195,8 @@ const authCode = gql`
 `;
 
 const mapStateToProps = state => ({
-  translate: getTranslate(state.locale)
+  translate: getTranslate(state.locale),
+  currentLanguage: getActiveLanguage(state.locale).code
 });
 
 const mapDispatchToProps = {

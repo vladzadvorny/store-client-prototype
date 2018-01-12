@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
+import { Link } from 'react-router-dom';
 
 import CategoriesDropdown from './CategoriesDropdown';
 import LocaleDropdown from './LocaleDropdown';
 import UserDropdown from './UserDropdown';
 import SignInPopup from './SignInPopup';
 import SectionsDropdown from './SectionsDropdown';
+import { types } from '../../config';
 
 class Header extends Component {
   state = {
@@ -23,16 +25,31 @@ class Header extends Component {
 
   render() {
     const { me: { name, id }, translate, location } = this.props;
+    const section = location.split('/')[1];
+    const isType = section
+      ? types.indexOf(section.substring(0, section.length - 1)) !== -1
+      : false;
+    const category = location.split('/')[2];
 
     return (
       <header className="header">
         <div className="container">
           <ul className="menu">
-            <SectionsDropdown location={location} />
+            {location === '/' || isType ? (
+              <SectionsDropdown section={section} />
+            ) : (
+              <li>
+                <Link to="/">{translate('home')}</Link>
+              </li>
+            )}
+
+            {isType && (
+              <CategoriesDropdown section={section} category={category} />
+            )}
+
             {/* <li>
               <a href="#">FAQ</a>
             </li> */}
-            <CategoriesDropdown location={location} />
           </ul>
           <ul className="menu">
             <LocaleDropdown />

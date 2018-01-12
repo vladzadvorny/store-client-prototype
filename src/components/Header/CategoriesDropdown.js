@@ -27,22 +27,20 @@ class Dropdown extends Component {
   };
 
   componentDidMount() {
-    const { location } = this.props;
-    const section = location.split('/')[1];
+    const { section } = this.props;
+    const singular = section.substring(0, section.length - 1);
     if (section) {
-      this.fetch(section.substring(0, section.length - 1));
+      this.fetch(singular);
     }
   }
 
   componentWillReceiveProps(newProps) {
-    const section = this.props.location.split('/')[1];
-    const newSection = newProps.location.split('/')[1];
+    const { section } = this.props;
+    const newSection = newProps.section;
+    const singular = newSection.substring(0, newSection.length - 1);
 
-    if (
-      types.indexOf(newSection.substring(0, newSection.length - 1)) !== -1 &&
-      section !== newSection
-    ) {
-      this.fetch(newSection.substring(0, newSection.length - 1));
+    if (singular !== -1 && section !== newSection) {
+      this.fetch(singular);
     }
   }
 
@@ -68,44 +66,42 @@ class Dropdown extends Component {
 
   render() {
     const { show, data } = this.state;
-    const { location, translate } = this.props;
+    const { section, category, translate } = this.props;
 
-    const sectionUrl = location.split('/')[1];
-    const categoryUrl = location.split('/')[2];
-    let categoryName;
-    if (categoryUrl) {
-      categoryName =
-        data.length === 0
-          ? null
-          : data[findIndex(data, ['url', categoryUrl])].name;
-    } else {
-      categoryName = null;
-    }
-
-    if (types.indexOf(sectionUrl.substring(0, sectionUrl.length - 1)) === -1) {
-      return null;
+    let categoryName = '';
+    if (category) {
+      try {
+        categoryName =
+          data.length === 0
+            ? null
+            : data[findIndex(data, ['url', category])].name;
+      } catch (error) {
+        categoryName = 'noname';
+      }
     }
 
     return (
       <li className={`dropdown ${show ? 'active' : null}`}>
         <span onClick={() => this.toggle()} role="presentation">
-          {!categoryUrl ? translate('allCategories') : categoryName}
+          {!category ? translate('allCategories') : categoryName}
         </span>
         {show && (
-          <div className="dropdown-content">
+          <div
+            className="dropdown-content"
+            onClick={() => this.toggle()}
+            role="presentation"
+          >
             <ul className="two">
-              {!categoryUrl ? null : (
+              {!category ? null : (
                 <li>
-                  <Link to={`/${sectionUrl}`}>All categories</Link>
+                  <Link to={`/${section}`}>All categories</Link>
                 </li>
               )}
-              {data.map((item, i) => {
-                return (
-                  <li key={item.id}>
-                    <Link to={`/bots/${item.url}`}>{item.name}</Link>
-                  </li>
-                );
-              })}
+              {data.map((item, i) => (
+                <li key={item.id}>
+                  <Link to={`/${section}/${item.url}`}>{item.name}</Link>
+                </li>
+              ))}
             </ul>
           </div>
         )}

@@ -78,7 +78,6 @@ $space-menu: 12px;
         }
 
         li {
-          width: 100%;
           white-space: nowrap;
           &:hover {
             border-bottom: 0;
@@ -86,6 +85,7 @@ $space-menu: 12px;
           }
           a,
           span {
+            width: 100%;
             line-height: 30px;
             &::after {
               content: '';

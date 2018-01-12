@@ -21,20 +21,7 @@ class SectionsDropdown extends Component {
 
   render() {
     const { show } = this.state;
-    const { location, translate } = this.props;
-
-    const section = location.split('/')[1];
-
-    if (
-      section &&
-      types.indexOf(section.substring(0, section.length - 1)) === -1
-    ) {
-      return (
-        <li>
-          <Link to="/">{translate('home')}</Link>
-        </li>
-      );
-    }
+    const { section, translate } = this.props;
 
     return (
       <li className={`dropdown ${show ? 'active' : null}`}>
@@ -48,20 +35,21 @@ class SectionsDropdown extends Component {
             role="presentation"
           >
             <ul>
-              {!section ? null : (
+              {types.map(
+                (item, i) =>
+                  `${item}s` === section ? null : (
+                    <li key={i}>
+                      <Link style={{ width: '100%' }} to={`/${item}s`}>
+                        {translate(`${item}s`)}
+                      </Link>
+                    </li>
+                  )
+              )}
+              {section && (
                 <li>
                   <Link to="/">{translate('allSections')}</Link>
                 </li>
               )}
-              {types.map((item, i) => {
-                return `${item}s` === section ? null : (
-                  <li key={i}>
-                    <Link style={{ width: '100%' }} to={`/${item}s`}>
-                      {translate(`${item}s`)}
-                    </Link>
-                  </li>
-                );
-              })}
             </ul>
           </div>
         )}
