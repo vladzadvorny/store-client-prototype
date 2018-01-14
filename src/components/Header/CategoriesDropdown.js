@@ -7,8 +7,6 @@ import findIndex from 'lodash.findindex';
 import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
 
-import { types } from '../../config';
-
 const categoriesQuery = gql`
   query($type: TypeEnum!) {
     categories(type: $type) {
@@ -20,7 +18,7 @@ const categoriesQuery = gql`
   }
 `;
 
-class Dropdown extends Component {
+class CategoryDropdown extends Component {
   state = {
     show: false,
     data: []
@@ -119,4 +117,4 @@ const mapDispatchToProps = {};
 export default compose(
   withApollo,
   connect(mapStateToProps, mapDispatchToProps)
-)(enhanceWithClickOutside(Dropdown));
+)(enhanceWithClickOutside(CategoryDropdown));

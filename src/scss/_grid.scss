@@ -4,6 +4,14 @@
   padding: 0 $freeSpace - 10 0 $freeSpace - 10;
 }
 
+.row {
+  width: 100%;
+}
+
+.width60 {
+  width: 60%;
+}
+
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
   .container {
@@ -23,6 +31,9 @@
   .container {
     width: 750px;
   }
+  .width50 {
+    width: 100%;
+  }
 }
 
 /* Landscape phones and portrait tablets */
@@ -30,11 +41,17 @@
   .container {
     width: 100%;
   }
+  .width50 {
+    width: 100%;
+  }
 }
 
 /* Landscape phones and smaller */
 @media (max-width: 480px) {
   .container {
+    width: 100%;
+  }
+  .width50 {
     width: 100%;
   }
 }

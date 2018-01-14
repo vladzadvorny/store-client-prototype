@@ -14,7 +14,7 @@ class Home extends Component {
   }
 
   render() {
-    const { data: { loading, products } } = this.props;
+    const { data: { loading, bots } } = this.props;
     if (loading) {
       return null;
     }
@@ -24,7 +24,7 @@ class Home extends Component {
           Hello
           <Plane size="19" />
         </button>
-        {products.map(u => (
+        {bots.map(u => (
           <div key={u.id}>
             <h3>{u.title}</h3>
             <p>{u.description}</p>
@@ -35,9 +35,9 @@ class Home extends Component {
   }
 }
 
-const productsQuery = gql`
+const botsQuery = gql`
   {
-    products {
+    bots {
       id
       title
       description
@@ -53,5 +53,5 @@ const mapDispatchToProps = {};
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  graphql(productsQuery)
+  graphql(botsQuery)
 )(Home);

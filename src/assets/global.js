@@ -75,6 +75,21 @@ export default {
     'جميع الفئات',
     '모든 카테고리'
   ],
+
+  //
+  bot: ['Bot', 'Бот', 'Bot', 'Bot', 'Bot', 'بوت', '봇'],
+  channel: ['Channel', 'Канал', 'Canal', 'Canal', 'Kanal', 'قناة', '채널'],
+  group: ['Group', 'Группа', 'Groupe', 'Grupo', 'Gruppe', 'مجموعة', '그룹'],
+  sticker: [
+    'Stickers',
+    'Стикеры',
+    'Autocollants',
+    'Pegatinas',
+    'Aufkleber',
+    'ملصقات',
+    '스티커'
+  ],
+
   bots: ['Bots', 'Боты', 'Bots', 'Bots', 'Bots', 'السير', '봇'],
   channels: [
     'Channels',

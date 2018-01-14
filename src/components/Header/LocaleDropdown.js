@@ -20,7 +20,7 @@ import {
 class LocaleDropdown extends Component {
   state = {
     show: false,
-    productLangs: getStorageLocale().products
+    productsLangs: getStorageLocale().products
   };
 
   setStorageProductLangs(lang) {
@@ -35,7 +35,7 @@ class LocaleDropdown extends Component {
       locale.products = ['en'];
     }
 
-    this.setState({ productLangs: locale.products });
+    this.setState({ productsLangs: locale.products });
     setStorageLocale(locale);
   }
 
@@ -54,7 +54,7 @@ class LocaleDropdown extends Component {
       languages,
       currentLanguage,
       setLanguage,
-      data: { loading, productLangs },
+      data: { loading, productsLangs },
       refetchInterface,
       refetchProducts
     } = this.props;
@@ -107,7 +107,7 @@ class LocaleDropdown extends Component {
                   </td>
                   <td>
                     <ul className="two">
-                      {productLangs.map((item, i) => (
+                      {productsLangs.map((item, i) => (
                         <li
                           key={i}
                           role="presentation"
@@ -118,7 +118,7 @@ class LocaleDropdown extends Component {
                         >
                           <span
                             className={
-                              this.state.productLangs.indexOf(item) !== -1
+                              this.state.productsLangs.indexOf(item) !== -1
                                 ? 'selected'
                                 : null
                             }
@@ -139,9 +139,9 @@ class LocaleDropdown extends Component {
   }
 }
 
-const productLangs = gql`
+const productsLangs = gql`
   {
-    productLangs
+    productsLangs
   }
 `;
 
@@ -159,5 +159,5 @@ const mapDispatchToProps = {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  graphql(productLangs)
+  graphql(productsLangs)
 )(enhanceWithClickOutside(LocaleDropdown));
