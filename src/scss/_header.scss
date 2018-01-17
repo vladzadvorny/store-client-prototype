@@ -104,6 +104,7 @@ $space-menu: 12px;
         table {
           border-collapse: collapse;
           border-style: hidden;
+          width: 100%;
 
           td {
             border: 1px solid $greyColor;
@@ -136,6 +137,20 @@ $space-menu: 12px;
             padding-right: $space-menu;
             line-height: 30px;
           }
+        }
+      }
+    }
+    /* Landscape phones and portrait tablets */
+    @media (max-width: 767px) {
+      .dropdown-content {
+        position: fixed;
+        left: 0;
+        right: 0;
+      }
+      .locale {
+        margin-right: $freeSpace;
+        .dropdown-content {
+          margin-left: 0;
         }
       }
     }

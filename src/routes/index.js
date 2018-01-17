@@ -7,7 +7,7 @@ import Home from './Home';
 import Test from './Test';
 import Admin from './Admin';
 import Section from './Section';
-import AddProduct from './AddProduct';
+import Add from './Add';
 
 export default () => (
   <div className="app">
@@ -16,7 +16,7 @@ export default () => (
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/test" exact component={Test} />
-        <Route path="/add" exact component={AddProduct} />
+        <Route path="/add" component={Add} />
         <Route path="/admin" component={Admin} />
         <Route path="/:section" exact component={Section} />
       </Switch>
