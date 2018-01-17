@@ -46,17 +46,3 @@ small,
 .font_small {
   font-size: 0.8em;
 }
-
-.success,
-.error {
-  background-color: lighten($successColor, 10%);
-  border: 1px solid $successColor;
-  font-size: 0.8em;
-  padding: $freeSpace / 2;
-  border-radius: $borderRadius;
-}
-
-.error {
-  background-color: lighten($errorColor, 30%);
-  border-color: $errorColor;
-}

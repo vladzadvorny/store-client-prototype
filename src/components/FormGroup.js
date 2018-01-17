@@ -4,19 +4,27 @@ export default ({
   label,
   value,
   name,
+  error,
   onChange,
   placeholder = '',
-  type = 'text'
+  type = 'text',
+  onFocus,
+  errorMessage
 }) => (
   <div className="form-group">
-    <label>{label}</label>
+    <div className="label-group">
+      <label className={error ? 'error' : null}>{label}</label>
+      {error && <span>{errorMessage}</span>}
+    </div>
+
     <input
       type={type}
       name={name}
-      className="form-control"
+      className={`form-control ${error ? 'error' : null}`}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      onFocus={onFocus}
     />
   </div>
 );

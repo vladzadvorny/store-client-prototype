@@ -76,6 +76,10 @@ textarea {
   min-height: 80px;
 }
 
+.Select-menu-outer {
+  z-index: 999 !important;
+}
+
 .Select-control {
   border-color: $greyColor;
   margin-bottom: 1.3em;
@@ -113,5 +117,43 @@ form {
     font-weight: bold;
     margin-bottom: 1px;
     margin-left: 2px;
+  }
+}
+.label-group {
+  display: flex;
+  justify-content: space-between;
+  span {
+    color: $errorColor;
+    margin-right: 2px;
+  }
+}
+
+div.success,
+p.success,
+div.error,
+p.error {
+  background-color: lighten($successColor, 10%);
+  border: 1px solid $successColor;
+  font-size: 0.8em;
+  padding: $freeSpace / 2;
+  border-radius: $borderRadius;
+}
+
+div.error,
+p.error {
+  background-color: lighten($errorColor, 30%);
+  border-color: $errorColor;
+}
+
+label {
+  &.error {
+    color: $errorColor;
+  }
+}
+
+input {
+  &.error {
+    background-color: lighten($errorColor, 30%);
+    border-color: $errorColor;
   }
 }

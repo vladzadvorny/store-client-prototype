@@ -13,7 +13,7 @@ export default {
   ],
   clickHere: [
     'click here',
-    'нажмите сюда',
+    'кликни сюда',
     'cliquez ici',
     'haga clic aquí',
     'klick hier',
@@ -184,5 +184,62 @@ export default {
     'Code nicht erhalten',
     'لم يتم تلقي الرمز',
     '코드를받지 못했습니다'
+  ],
+  // adding
+  title: ['Title', 'Название', 'Titre', 'Título', 'Titel', 'عنوان', '표제'],
+  titleError: [
+    '3 to 40 characters',
+    'От 3 до 40 символов',
+    'De 3 à 40 caractères',
+    'De 3 a 40 caracteres',
+    'Von 3 bis 40 Zeichen',
+    'من 3 إلى 40 حرفا',
+    '3 ~ 40 자'
+  ],
+  category: [
+    'Category',
+    'Категория',
+    'Catégorie',
+    'Categoría',
+    'Kategorie',
+    'الفئة',
+    '범주'
+  ],
+  fieldIsRequired: [
+    'Field is required',
+    'Заполнение обязательно',
+    'Champ requis',
+    'Se requiere campo',
+    'Feld ist erforderlich',
+    'الحقل مطلوب',
+    '필드가 필요합니다'
+  ],
+  image: ['Image', 'Изображение', 'Image', 'Imagen', 'Bild', 'صورة', '영상'],
+  submitToModeration: [
+    'Submit to moderation',
+    'Отправить на модерацию',
+    'Soumettre à la modération',
+    'Presentarse a la moderación',
+    'An Moderation senden',
+    'إرسال إلى الاعتدال',
+    '검토 용으로 제출'
+  ],
+  theProductWasSuccessfullySentForModeration: [
+    'The product was successfully sent for moderation',
+    'Продукт успешно отправлен на модерацию',
+    'Le produit a été envoyé avec succès pour modération',
+    'El producto fue enviado con éxito para moderación',
+    'Das Produkt wurde erfolgreich zur Moderation gesendet',
+    'تم إرسال المنتج بنجاح للإشراف',
+    '제품이 검토를 위해 성공적으로 전송되었습니다'
+  ],
+  addStickers: [
+    'Add Stickers',
+    'Добавление стикеров',
+    'Ajouter des autocollants',
+    'Agregar pegatinas',
+    'Füge Aufkleber hinzu',
+    'إضافة ملصقات',
+    '스티커 추가'
   ]
 };
