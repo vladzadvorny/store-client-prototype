@@ -6,7 +6,7 @@ button,
   font-size: 15px;
   border: 1px solid $primaryColor;
   cursor: pointer;
-  height: 34px;
+  height: 33px;
   padding-left: $freeSpace;
   padding-right: $freeSpace;
   display: flex;
@@ -33,7 +33,7 @@ button,
     font-size: 12px;
     padding-left: $freeSpace / 2;
     padding-right: $freeSpace / 2;
-    height: 24px;
+    height: 25px;
   }
 
   svg {

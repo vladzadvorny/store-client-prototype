@@ -10,20 +10,20 @@ import { filesUrl } from '../../config';
 import Plane from '../../components/Plane';
 import languages from '../../assets/languages';
 
+const description = {
+  name: '',
+  nameError: false,
+  lang: '',
+  langError: false,
+  body: '',
+  bodyError: false
+};
+
 class Bot extends Component {
   state = {
     category: null, // {value: "5a5bd23290ffd10ccd224d04", label: "voluptas"},
     image: null, // {id: "5a5f7f3ef04cd00a8d4be1ef", name: "uby5d4j.jpg", path: "b/v/d", __typename: "File"}
-    descriptions: [
-      {
-        lang: '',
-        langError: false,
-        name: '',
-        nameError: false,
-        body: '',
-        bodyError: false
-      }
-    ],
+    descriptions: [],
     categoryError: false,
     imageError: false,
     descriptionsError: false,
@@ -43,8 +43,77 @@ class Bot extends Component {
     this.setState({ [name]: value });
   }
 
-  async onChangeSelect(name, value) {
+  onChangeSelect(name, value) {
     this.setState({ [name]: value });
+  }
+
+  onChangeDescriptionsInput(index, name, value) {
+    const { descriptions } = this.state;
+    const newDescriptions = descriptions.slice();
+    newDescriptions[index][name] = value;
+    console.log(newDescriptions);
+    this.setState({
+      descriptions: newDescriptions
+    });
+  }
+
+  checkDescriptionsErrors() {
+    const { descriptions } = this.state;
+    const newDescriptions = descriptions.slice();
+    let error = false;
+    descriptions.forEach((item, index) => {
+      if (!item.name || item.name.length < 3 || item.name.length > 40) {
+        //
+        newDescriptions[index].nameError = true;
+        error = true;
+      } else if (!item.lang) {
+        //
+        newDescriptions[index].langError = true;
+        error = true;
+      } else if (!item.body || item.body.length < 3 || item.body.length > 240) {
+        //
+        newDescriptions[index].bodyError = true;
+        error = true;
+      }
+    });
+
+    this.setState({
+      descriptions: newDescriptions
+    });
+
+    return error;
+  }
+
+  cleanDescriptionsErrors() {
+    const { descriptions } = this.state;
+    const newDescriptions = descriptions.slice();
+    descriptions.forEach((item, index) => {
+      newDescriptions[index].nameError = false;
+      newDescriptions[index].langError = false;
+      newDescriptions[index].bodyError = false;
+    });
+    this.setState({
+      descriptions: newDescriptions
+    });
+  }
+
+  addDescription() {
+    const { descriptions } = this.state;
+    const newDescriptions = descriptions.slice();
+    newDescriptions.push(Object.assign({}, description));
+    this.setState({
+      descriptions: newDescriptions,
+      descriptionsError: false
+    });
+  }
+
+  deleteDescription(index) {
+    const { descriptions } = this.state;
+    const newDescriptions = descriptions.slice();
+    newDescriptions.splice(index, 1);
+    this.setState({
+      descriptions: newDescriptions
+    });
   }
 
   async handleChangeImage({ target }) {
@@ -64,31 +133,28 @@ class Bot extends Component {
   }
 
   async send() {
-    const { name, description, category, lang, image } = this.state;
+    const { category, image, descriptions } = this.state;
     const { addBot } = this.props;
 
-    if (!name || name.length < 3 || name.length > 40) {
-      this.setState({ nameError: true });
-    } else if (
-      !description ||
-      description.length < 3 ||
-      description.length > 240
-    ) {
-      this.setState({ descriptionError: true });
-    } else if (!category) {
+    if (!category) {
       this.setState({ categoryError: true });
-    } else if (!lang) {
-      this.setState({ langError: true });
     } else if (!image) {
       this.setState({ imageError: true });
+    } else if (descriptions.length === 0) {
+      this.setState({ descriptionsError: true });
+    } else if (this.checkDescriptionsErrors()) {
     } else {
+      const newDescriptions = descriptions.map(item => ({
+        lang: item.lang.value,
+        name: item.name,
+        body: item.body
+      }));
+      console.log(newDescriptions);
       try {
         const { data } = await addBot({
           variables: {
-            name,
-            description,
             categoryId: category.value,
-            lang: lang.value,
+            descriptionsJSON: JSON.stringify(newDescriptions),
             imageId: image.id
           }
         });
@@ -103,7 +169,7 @@ class Bot extends Component {
   }
 
   render() {
-    // console.log(this.state);
+    // console.log(this.state.descriptions);
     const {
       category,
       image,
@@ -241,13 +307,40 @@ class Bot extends Component {
               <ul>
                 {descriptions.map((item, i) => (
                   <li key={i}>
-                    <b>{`#${i + 1} - ${item.lang}`}</b>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <b style={{ color: '#a19679' }}>
+                        {`#${i + 1}  ${
+                          item.lang.value !== undefined
+                            ? languages[item.lang.value][1]
+                            : ''
+                        }`}
+                      </b>
+                      <span
+                        role="presentation"
+                        onClick={() => this.deleteDescription(i)}
+                        className="link"
+                      >
+                        delete
+                      </span>
+                    </div>
+
                     <FormGroup
                       label={translate('name')}
                       name={`name-${i}`}
                       error={item.nameError}
-                      onChange={e => this.onChange(e)}
-                      // onFocus={() => this.setState({ nameError: false })}
+                      onChange={e =>
+                        this.onChangeDescriptionsInput(
+                          i,
+                          'name',
+                          e.target.value
+                        )
+                      }
+                      onFocus={() => this.cleanDescriptionsErrors()}
                       value={item.name}
                       errorMessage={translate('nameError')}
                     />
@@ -280,9 +373,11 @@ class Bot extends Component {
                         className="lang"
                         value={item.lang}
                         placeholder={`${translate('select')}...`}
-                        onChange={e => this.onChangeSelect('lang', e)}
+                        onChange={e =>
+                          this.onChangeDescriptionsInput(i, 'lang', e)
+                        }
                         options={langsOptions}
-                        onFocus={() => this.setState({ langError: false })}
+                        onFocus={() => this.cleanDescriptionsErrors()}
                       />
                     </div>
 
@@ -300,20 +395,34 @@ class Bot extends Component {
                         )}
                       </div>
                       <textarea
-                        name="body"
-                        // onFocus={() =>
-                        // this.setState({ descriptionError: false })
-                        // }
+                        name={`body-${i}`}
+                        onFocus={() => this.cleanDescriptionsErrors()}
                         className={`form-control ${
                           item.bodyError ? 'error' : null
                         }`}
                         value={item.body}
-                        onChange={e => this.onChange(e)}
+                        onChange={e =>
+                          this.onChangeDescriptionsInput(
+                            i,
+                            'body',
+                            e.target.value
+                          )
+                        }
                       />
                     </div>
                   </li>
                 ))}
               </ul>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-end'
+                }}
+              >
+                <button className="small" onClick={() => this.addDescription()}>
+                  {translate('add')}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -372,19 +481,11 @@ const productImageUploadMitation = gql`
   image,
  */
 
-const addGroupMutation = gql`
-  mutation(
-    $name: String!
-    $description: String!
-    $categoryId: ID!
-    $lang: String!
-    $imageId: ID!
-  ) {
+const addBotMutation = gql`
+  mutation($categoryId: ID!, $descriptionsJSON: String!, $imageId: ID!) {
     addBot(
-      name: $name
-      description: $description
       categoryId: $categoryId
-      lang: $lang
+      descriptionsJSON: $descriptionsJSON
       imageId: $imageId
     )
   }
@@ -407,7 +508,7 @@ export default compose(
   graphql(productImageUploadMitation, {
     name: 'productImageUpload'
   }),
-  graphql(addGroupMutation, {
+  graphql(addBotMutation, {
     name: 'addBot'
   })
 )(Bot);

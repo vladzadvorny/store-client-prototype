@@ -20,6 +20,15 @@ export default {
     'انقر هنا',
     '여기를 클릭하십시오'
   ],
+  add: [
+    'Add',
+    'Добавить',
+    'Ajouter',
+    'Añadir',
+    'Hinzufügen',
+    'إضافة',
+    '더하다'
+  ],
   // Header
   signIn: [
     'Sign In',

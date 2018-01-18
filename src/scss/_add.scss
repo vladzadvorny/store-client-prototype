@@ -49,9 +49,8 @@
 }
 
 .bot-desctriptions-box {
-  border: 1px solid $greyColor;
-  border-radius: $borderRadius;
-  padding: $freeSpace;
+  border-top: 1px solid $greyColor;
+  padding-top: $freeSpace;
 
   ul {
     list-style: none;
@@ -59,8 +58,9 @@
     li {
       border: 1px solid $greyColor;
       border-radius: $borderRadius;
-      padding: $freeSpace / 2;
+      padding: $freeSpace / 2 $freeSpace 0;
       background-color: $whiteColor;
+      margin-bottom: $freeSpace;
     }
   }
 }
