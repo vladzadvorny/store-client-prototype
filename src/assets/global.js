@@ -286,5 +286,23 @@ export default {
     'Kanal hinzufügen',
     'إضافة قناة',
     '채널 추가'
+  ],
+  addGroup: [
+    'Add Group',
+    'Добавление группы',
+    'Ajouter un groupe',
+    'Añadir grupo',
+    'Gruppe hinzufügen',
+    'إضافة مجموعة',
+    '그룹 추가'
+  ],
+  addBot: [
+    'Add Bot',
+    'Добавление бота',
+    'Ajouter un Bot',
+    'Añadir Bot',
+    'Füge Bot hinzu',
+    'إضافة بوت',
+    '봇 추가'
   ]
 };

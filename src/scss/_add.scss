@@ -48,6 +48,23 @@
   }
 }
 
+.bot-desctriptions-box {
+  border: 1px solid $greyColor;
+  border-radius: $borderRadius;
+  padding: $freeSpace;
+
+  ul {
+    list-style: none;
+
+    li {
+      border: 1px solid $greyColor;
+      border-radius: $borderRadius;
+      padding: $freeSpace / 2;
+      background-color: $whiteColor;
+    }
+  }
+}
+
 /* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
   .add {
