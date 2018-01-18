@@ -119,6 +119,17 @@ form {
     margin-left: 2px;
   }
 }
+
+.form-group-select {
+  margin-bottom: 1.3em;
+
+  label {
+    font-weight: bold;
+    margin-bottom: 1px;
+    margin-left: 2px;
+  }
+}
+
 .label-group {
   display: flex;
   justify-content: space-between;
@@ -151,7 +162,8 @@ label {
   }
 }
 
-input {
+input,
+textarea {
   &.error {
     background-color: lighten($errorColor, 30%);
     border-color: $errorColor;

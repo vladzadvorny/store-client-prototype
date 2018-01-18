@@ -26,7 +26,7 @@ class Home extends Component {
         </button>
         {bots.map(u => (
           <div key={u.id}>
-            <h3>{u.title}</h3>
+            <h3>{u.name}</h3>
             <p>{u.description}</p>
           </div>
         ))}
@@ -39,7 +39,7 @@ const botsQuery = gql`
   {
     bots {
       id
-      title
+      name
       description
     }
   }

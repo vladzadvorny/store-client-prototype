@@ -186,8 +186,8 @@ export default {
     '코드를받지 못했습니다'
   ],
   // adding
-  title: ['Title', 'Название', 'Titre', 'Título', 'Titel', 'عنوان', '표제'],
-  titleError: [
+  name: ['Name', 'Название', 'Nom', 'Nombre', 'Name', 'اسم', '이름'],
+  nameError: [
     '3 to 40 characters',
     'От 3 до 40 символов',
     'De 3 à 40 caractères',
@@ -195,6 +195,33 @@ export default {
     'Von 3 bis 40 Zeichen',
     'من 3 إلى 40 حرفا',
     '3 ~ 40 자'
+  ],
+  description: [
+    'Description',
+    'Описание',
+    'La description',
+    'Descripción',
+    'Beschreibung',
+    'وصف',
+    '기술'
+  ],
+  descriptionError: [
+    '3 to 240 characters',
+    'От 3 до 240 символов',
+    'De 3 à 240 caractères',
+    'De 3 a 240 caracteres',
+    'Von 3 bis 240 Zeichen',
+    'من 3 إلى 240 حرفا',
+    '3 ~ 240 자'
+  ],
+  select: [
+    'Select',
+    'Выбрать',
+    'Sélectionner',
+    'Seleccionar',
+    'Wählen',
+    'تحديد',
+    '고르다'
   ],
   category: [
     'Category',
@@ -204,6 +231,15 @@ export default {
     'Kategorie',
     'الفئة',
     '범주'
+  ],
+  language: [
+    'Language',
+    'Язык',
+    'La langue',
+    'Idioma',
+    'Sprache',
+    'لغة',
+    '언어'
   ],
   fieldIsRequired: [
     'Field is required',
@@ -241,5 +277,14 @@ export default {
     'Füge Aufkleber hinzu',
     'إضافة ملصقات',
     '스티커 추가'
+  ],
+  addChannel: [
+    'Add Channel',
+    'Добавление канала',
+    'Ajouter une chaîne',
+    'Agregar canal',
+    'Kanal hinzufügen',
+    'إضافة قناة',
+    '채널 추가'
   ]
 };

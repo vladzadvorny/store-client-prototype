@@ -8,14 +8,19 @@ import { getTranslate } from 'react-localize-redux';
 import FormGroup from '../../components/FormGroup';
 import { filesUrl } from '../../config';
 import Plane from '../../components/Plane';
+import languages from '../../assets/languages';
 
-class Sticker extends Component {
+class Channel extends Component {
   state = {
     name: '',
-    category: null, // {value: "5a5bd23290ffd10ccd224d04", label: "voluptas"}
+    description: '',
+    category: null, // {value: "5a5bd23290ffd10ccd224d04", label: "voluptas"},
+    lang: null, // {value: "af", label: "Afrikaans"}
     image: null, // {id: "5a5f7f3ef04cd00a8d4be1ef", name: "uby5d4j.jpg", path: "b/v/d", __typename: "File"}
     nameError: false,
+    descriptionError: false,
     categoryError: false,
+    langError: false,
     imageError: false,
     ok: false
   };
@@ -33,10 +38,8 @@ class Sticker extends Component {
     this.setState({ [name]: value });
   }
 
-  async onChangeCategory(newCategory) {
-    this.setState({
-      category: newCategory
-    });
+  async onChangeSelect(name, value) {
+    this.setState({ [name]: value });
   }
 
   async handleChangeImage({ target }) {
@@ -56,26 +59,36 @@ class Sticker extends Component {
   }
 
   async send() {
-    const { name, category, image } = this.state;
-    const { addSticker } = this.props;
+    const { name, description, category, lang, image } = this.state;
+    const { addChannel } = this.props;
 
     if (!name || name.length < 3 || name.length > 40) {
       this.setState({ nameError: true });
+    } else if (
+      !description ||
+      description.length < 3 ||
+      description.length > 240
+    ) {
+      this.setState({ descriptionError: true });
     } else if (!category) {
       this.setState({ categoryError: true });
+    } else if (!lang) {
+      this.setState({ langError: true });
     } else if (!image) {
       this.setState({ imageError: true });
     } else {
       try {
-        const { data } = await addSticker({
+        const { data } = await addChannel({
           variables: {
             name,
+            description,
             categoryId: category.value,
+            lang: lang.value,
             imageId: image.id
           }
         });
-        console.log(data.addSticker);
-        if (data.addSticker) {
+        console.log(data.addChannel);
+        if (data.addChannel) {
           this.setState({ ok: true });
         }
       } catch (error) {
@@ -85,12 +98,17 @@ class Sticker extends Component {
   }
 
   render() {
+    // console.log(this.state);
     const {
       name,
+      description,
       category,
+      lang,
       image,
       nameError,
+      descriptionError,
       categoryError,
+      langError,
       imageError,
       ok
     } = this.state;
@@ -105,6 +123,13 @@ class Sticker extends Component {
         })
       );
     }
+    const langsOptions = [];
+    Object.keys(languages).map(key =>
+      langsOptions.push({
+        value: key,
+        label: languages[key][1]
+      })
+    );
 
     if (ok) {
       return (
@@ -128,7 +153,7 @@ class Sticker extends Component {
     return loading ? null : (
       <div className="container">
         <div className="row add">
-          <h2 className="title">{translate('addStickers')}</h2>
+          <h2 className="title">{translate('addChannel')}</h2>
           <FormGroup
             label={translate('name')}
             name="name"
@@ -138,6 +163,26 @@ class Sticker extends Component {
             value={name}
             errorMessage={translate('nameError')}
           />
+          {/* description */}
+          <div className="form-group">
+            <div className="label-group">
+              <label
+                className={descriptionError ? 'error' : null}
+                style={{ fontWeight: 'bold' }}
+              >
+                {translate('description')}
+              </label>
+              {descriptionError && <span>{translate('descriptionError')}</span>}
+            </div>
+            <textarea
+              name="description"
+              onFocus={() => this.setState({ descriptionError: false })}
+              className={`form-control ${descriptionError ? 'error' : null}`}
+              value={description}
+              onChange={e => this.onChange(e)}
+            />
+          </div>
+
           {/* category */}
           <div className="form-group-select">
             <div className="label-group">
@@ -152,7 +197,7 @@ class Sticker extends Component {
             {categoryError ? (
               <style>
                 {`
-                .Select-control {
+                .category .Select-control {
                   border-color: #ff6347;
                   background-color: #ffe5e0;
                 }
@@ -161,11 +206,44 @@ class Sticker extends Component {
             ) : null}
             <Select
               name="category"
+              className="category"
               value={category}
               placeholder={`${translate('select')}...`}
-              onChange={e => this.onChangeCategory(e)}
+              onChange={e => this.onChangeSelect('category', e)}
               options={categoryOptions}
               onFocus={() => this.setState({ categoryError: false })}
+            />
+          </div>
+
+          {/* lang */}
+          <div className="form-group-select">
+            <div className="label-group">
+              <label
+                className={langError ? 'error' : null}
+                style={{ fontWeight: 'bold' }}
+              >
+                {translate('language')}
+              </label>
+              {langError && <span>{translate('fieldIsRequired')}</span>}
+            </div>
+            {langError ? (
+              <style>
+                {`                
+                  .lang .Select-control {
+                  border-color: #ff6347;
+                  background-color: #ffe5e0;              
+                }                
+              `}
+              </style>
+            ) : null}
+            <Select
+              name="lang"
+              className="lang"
+              value={lang}
+              placeholder={`${translate('select')}...`}
+              onChange={e => this.onChangeSelect('lang', e)}
+              options={langsOptions}
+              onFocus={() => this.setState({ langError: false })}
             />
           </div>
 
@@ -202,6 +280,7 @@ class Sticker extends Component {
               )}
             </div>
           </div>
+
           <div
             style={{
               display: 'flex',
@@ -247,22 +326,32 @@ const productImageUploadMitation = gql`
     }
   }
 `;
+/**
+ *     
+  name,
+  description,
+  category,
+  lang,
+  image,
+ */
 
-const addStickerMutation = gql`
-  mutation($name: String!, $categoryId: ID!, $imageId: ID!) {
-    addSticker(name: $name, categoryId: $categoryId, imageId: $imageId)
+const addChannelMutation = gql`
+  mutation(
+    $name: String!
+    $description: String!
+    $categoryId: ID!
+    $lang: String!
+    $imageId: ID!
+  ) {
+    addChannel(
+      name: $name
+      description: $description
+      categoryId: $categoryId
+      lang: $lang
+      imageId: $imageId
+    )
   }
 `;
-
-// const multipleUploadMutation = gql`
-//   mutation($files: [Upload!]!) {
-//     multipleUpload(files: $files) {
-//       id
-//       name
-//       path
-//     }
-//   }
-// `;
 
 const mapStateToProps = state => ({
   translate: getTranslate(state.locale),
@@ -275,13 +364,13 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   graphql(categoriesQuery, {
     options: () => ({
-      variables: { type: 'sticker' }
+      variables: { type: 'channel' }
     })
   }),
   graphql(productImageUploadMitation, {
     name: 'productImageUpload'
   }),
-  graphql(addStickerMutation, {
-    name: 'addSticker'
+  graphql(addChannelMutation, {
+    name: 'addChannel'
   })
-)(Sticker);
+)(Channel);

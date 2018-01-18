@@ -9,7 +9,16 @@ const Add = ({ translate }) => (
       <h2 className="title">{translate('addProduct')}</h2>
       <ul>
         <li>
-          <Link to="/add/sticker">Add Sticker</Link>
+          <Link to="/add/sticker">{translate('sticker')}</Link>
+        </li>
+        <li>
+          <Link to="/add/channel">{translate('channel')}</Link>
+        </li>
+        <li>
+          <Link to="/add/group">{translate('group')}</Link>
+        </li>
+        <li>
+          <Link to="/add/bot">{translate('bot')}</Link>
         </li>
       </ul>
     </div>
