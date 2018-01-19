@@ -48,6 +48,9 @@ class UserDropdown extends Component {
               <li>
                 <Link to="/add">{translate('addProduct')}</Link>
               </li>
+              <li>
+                <Link to="/my">{translate('myProducts')}</Link>
+              </li>
               <hr />
               <li>
                 <span

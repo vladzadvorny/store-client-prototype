@@ -4,6 +4,7 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
+import map from 'lodash.map';
 
 import FormGroup from '../../components/FormGroup';
 import { filesUrl } from '../../config';
@@ -51,7 +52,7 @@ class Bot extends Component {
     const { descriptions } = this.state;
     const newDescriptions = descriptions.slice();
     newDescriptions[index][name] = value;
-    console.log(newDescriptions);
+
     this.setState({
       descriptions: newDescriptions
     });
@@ -143,13 +144,14 @@ class Bot extends Component {
     } else if (descriptions.length === 0) {
       this.setState({ descriptionsError: true });
     } else if (this.checkDescriptionsErrors()) {
+      //
     } else {
       const newDescriptions = descriptions.map(item => ({
         lang: item.lang.value,
         name: item.name,
         body: item.body
       }));
-      console.log(newDescriptions);
+
       try {
         const { data } = await addBot({
           variables: {
@@ -191,12 +193,15 @@ class Bot extends Component {
       );
     }
     const langsOptions = [];
-    Object.keys(languages).map(key =>
-      langsOptions.push({
-        value: key,
-        label: languages[key][1]
-      })
-    );
+    const langState = map(descriptions, 'lang.value');
+    Object.keys(languages).forEach(key => {
+      if (langState.indexOf(key) === -1) {
+        langsOptions.push({
+          value: key,
+          label: languages[key][1]
+        });
+      }
+    });
 
     if (ok) {
       return (
@@ -295,7 +300,7 @@ class Bot extends Component {
                 className={descriptionsError ? 'error' : null}
                 style={{ fontWeight: 'bold' }}
               >
-                {translate('description')}
+                {translate('namesAndDescriptions')}
               </label>
               {descriptionsError && <span>{translate('fieldIsRequired')}</span>}
             </div>
@@ -325,7 +330,7 @@ class Bot extends Component {
                         onClick={() => this.deleteDescription(i)}
                         className="link"
                       >
-                        delete
+                        {translate('delete')}
                       </span>
                     </div>
 

@@ -29,6 +29,15 @@ export default {
     'إضافة',
     '더하다'
   ],
+  delete: [
+    'delete',
+    'удалить',
+    'effacer',
+    'borrar',
+    'löschen',
+    'حذف',
+    '지우다'
+  ],
   // Header
   signIn: [
     'Sign In',
@@ -56,6 +65,15 @@ export default {
     'Produkt hinzufügen',
     'إضافة منتج',
     '제품 추가'
+  ],
+  myProducts: [
+    'My products',
+    'Мои продукты',
+    'Mes produits',
+    'Mis productos',
+    'Meine Produkte',
+    'منتجاتي',
+    '내 제품'
   ],
   home: [
     'Home',
@@ -313,5 +331,14 @@ export default {
     'Füge Bot hinzu',
     'إضافة بوت',
     '봇 추가'
+  ],
+  namesAndDescriptions: [
+    'Names and descriptions',
+    'Названия и описания',
+    'Noms et descriptions',
+    'Nombres y descripciones',
+    'Namen und Beschreibungen',
+    'الأسماء والأوصاف',
+    '이름 및 설명'
   ]
 };

@@ -3,6 +3,16 @@ import { Link } from 'react-router-dom';
 
 export default () => (
   <div className="container">
-    <Link to="/admin/categories/bot">Categories</Link>
+    <div className="row">
+      <h2 className="title">Admin</h2>
+      <ul style={{ listStyle: 'none', fontSize: 16 }}>
+        <li>
+          <Link to="/admin/categories/bot">Categories</Link>
+        </li>
+        <li>
+          <Link to="/admin/moderation">Moderation</Link>
+        </li>
+      </ul>
+    </div>
   </div>
 );

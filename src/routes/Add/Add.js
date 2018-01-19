@@ -7,7 +7,7 @@ const Add = ({ translate }) => (
   <div className="container">
     <div className="row">
       <h2 className="title">{translate('addProduct')}</h2>
-      <ul>
+      <ul style={{ listStyle: 'none', fontSize: 16 }}>
         <li>
           <Link to="/add/sticker">{translate('sticker')}</Link>
         </li>
