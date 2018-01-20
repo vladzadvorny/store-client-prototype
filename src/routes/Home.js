@@ -2,56 +2,115 @@ import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
+import { getTranslate } from 'react-localize-redux';
 
-import Plane from '../components/Plane';
+import Section from '../components/Home/Section';
+import {
+  BotsQuery,
+  ChannelsQuery,
+  GroupsQuery,
+  StickersQuery
+} from '../queries/home';
 
 class Home extends Component {
   componentWillReceiveProps(newProps) {
-    const { refetchProducts, data: { refetch } } = this.props;
+    const { refetchProducts, botsQuery, channelsQuery } = this.props;
     if (newProps.refetchProducts > refetchProducts) {
-      refetch();
+      botsQuery.refetch();
+      channelsQuery.refetch();
     }
   }
 
   render() {
-    const { data: { loading, bots } } = this.props;
-    if (loading) {
-      return null;
-    }
+    const {
+      botsQuery,
+      channelsQuery,
+      groupsQuery,
+      stickersQuery,
+      translate
+    } = this.props;
+    // if (
+    //   botsQuery.loading ||
+    //   channelsQuery.loading ||
+    //   groupsQuery.loading ||
+    //   stickersQuery.loading
+    // ) {
+    //   return null;
+    // }
+
     return (
-      <div>
-        <button className="inverse" onClick={() => this.props.data.refetch()}>
-          Hello
-          <Plane size="19" />
-        </button>
-        {bots.map(u => (
-          <div key={u.id}>
-            <h3>{u.name}</h3>
-            <p>{u.description}</p>
-          </div>
-        ))}
+      <div className="container home">
+        {/* bots */}
+        <h2>{translate('bots')}</h2>
+        {botsQuery.loading ? (
+          <div className="loading" />
+        ) : (
+          <Section products={botsQuery.bots} />
+        )}
+
+        {/* channels */}
+        <h2>{translate('channels')}</h2>
+        {channelsQuery.loading ? (
+          <div className="loading" />
+        ) : (
+          <Section products={channelsQuery.channels} />
+        )}
+
+        {/* groups */}
+        <h2>{translate('groups')}</h2>
+        {groupsQuery.loading ? (
+          <div className="loading" />
+        ) : (
+          <Section products={groupsQuery.groups} />
+        )}
+
+        {/* stickers */}
+        <h2>{translate('stickers')}</h2>
+        {groupsQuery.loading ? (
+          <div className="loading" />
+        ) : (
+          <Section products={stickersQuery.stickers} stickers />
+        )}
       </div>
     );
   }
 }
 
-const botsQuery = gql`
-  {
-    bots {
-      id
-      name
-      description
-    }
-  }
-`;
-
 const mapStateToProps = state => ({
-  refetchProducts: state.refetch.products
+  refetchProducts: state.refetch.products,
+  translate: getTranslate(state.locale)
 });
 
 const mapDispatchToProps = {};
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  graphql(botsQuery)
+  graphql(BotsQuery, {
+    name: 'botsQuery',
+    fetchPolicy: 'network-only',
+    options: () => ({
+      variables: { skip: 0, limit: 12 }
+    })
+  }),
+  graphql(ChannelsQuery, {
+    name: 'channelsQuery',
+    fetchPolicy: 'network-only',
+    options: () => ({
+      variables: { skip: 0, limit: 12 }
+    })
+  }),
+  graphql(GroupsQuery, {
+    name: 'groupsQuery',
+    fetchPolicy: 'network-only',
+    options: () => ({
+      variables: { skip: 0, limit: 12 }
+    })
+  }),
+  graphql(StickersQuery, {
+    name: 'stickersQuery',
+    fetchPolicy: 'network-only',
+    options: () => ({
+      variables: { skip: 0, limit: 12 }
+    })
+  })
 )(Home);

@@ -33,7 +33,7 @@ class My extends Component {
               {translate('addProduct')}
             </Link>
           ) : (
-            <ul style={{ listStyle: 'none', fontSize: 16 }}>
+            <ul style={{ listStyle: 'none', fontSize: 14 }}>
               <li>
                 <p>
                   Unfortunately, editing is not yet possible. But in the near

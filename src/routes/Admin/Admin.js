@@ -5,7 +5,7 @@ export default () => (
   <div className="container">
     <div className="row">
       <h2 className="title">Admin</h2>
-      <ul style={{ listStyle: 'none', fontSize: 16 }}>
+      <ul style={{ listStyle: 'none', fontSize: 14 }}>
         <li>
           <Link to="/admin/categories/bot">Categories</Link>
         </li>

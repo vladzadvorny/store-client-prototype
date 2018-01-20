@@ -15,9 +15,8 @@ class Moderation extends Component {
 
   render() {
     const {
-      data: { loading, myProducts },
+      data: { loading, moderationProducts },
       data,
-      translate,
       deleteProduct
     } = this.props;
     if (loading) {
@@ -29,8 +28,8 @@ class Moderation extends Component {
         <div className="row">
           <h2 className="title">Moderation</h2>
 
-          <ul style={{ listStyle: 'none', fontSize: 16 }}>
-            {myProducts.map(product => (
+          <ul style={{ listStyle: 'none', fontSize: 14 }}>
+            {moderationProducts.map(product => (
               <li key={product.id}>
                 <Link to={`/edit/${product.type}/${product.id}`}>
                   {product.name}
@@ -63,9 +62,9 @@ class Moderation extends Component {
   }
 }
 
-const productsQuery = gql`
+const moderationProductsQuery = gql`
   {
-    myProducts {
+    moderationProducts {
       id
       name
       type
@@ -89,7 +88,7 @@ const mapDispatchToProps = {};
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  graphql(productsQuery),
+  graphql(moderationProductsQuery),
   graphql(deleteProductMutation, {
     name: 'deleteProduct'
   })
