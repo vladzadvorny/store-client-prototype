@@ -5238,6 +5238,10 @@ react-input-autosize@^2.1.2:
   dependencies:
     prop-types "^15.5.8"
 
+react-loading@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-1.0.3.tgz#48c2cc9a83916853e4c166dd2e4ee07884823b68"
+
 react-localize-redux@^2.13.7:
   version "2.13.7"
   resolved "https://registry.yarnpkg.com/react-localize-redux/-/react-localize-redux-2.13.7.tgz#dfe3eb475d9087b5fabb81a37fb59d427f38ee48"

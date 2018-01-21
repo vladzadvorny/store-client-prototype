@@ -16,35 +16,49 @@ class Section extends Component {
   };
 
   async componentWillMount() {
-    const { match: { params: { section } } } = this.props;
-    this.getProducts(section);
+    const { match: { params: { section, category } } } = this.props;
+    this.getProducts(section, category);
   }
 
   componentWillReceiveProps(newProps) {
-    const { refetchProducts, match: { params: { section } } } = this.props;
-    if (newProps.refetchProducts > refetchProducts) {
-      this.getProducts(newProps.match.params.section);
+    const {
+      refetchProducts,
+      match: { params: { section, category } }
+    } = this.props;
+    if (
+      newProps.refetchProducts > refetchProducts ||
+      newProps.match.params.section !== section ||
+      newProps.match.params.category !== category
+    ) {
+      this.getProducts(
+        newProps.match.params.section,
+        newProps.match.params.category
+      );
       this.setState({
         quantity: sum,
         showMoreButton: true
       });
     }
 
-    if (newProps.match.params.section !== section) {
-      this.getProducts(newProps.match.params.section);
-      this.setState({
-        quantity: sum,
-        showMoreButton: true
-      });
-    }
+    // if (newProps.match.params.section !== section) {
+    //   this.getProducts(
+    //     newProps.match.params.section,
+    //     newProps.match.params.category
+    //   );
+    //   this.setState({
+    //     quantity: sum,
+    //     showMoreButton: true
+    //   });
+    // }
   }
 
-  async getProducts(section, reset = true, skip = 0, limit = sum) {
+  async getProducts(section, category, reset = true, skip = 0, limit = sum) {
     const { client: { query } } = this.props;
+
     const products = await query({
       query: gql`
-      query($skip: Int, $limit: Int) {
-        ${section}(skip: $skip, limit: $limit) {
+      query($skip: Int, $limit: Int, $category: String) {
+        ${section}(skip: $skip, limit: $limit, category: $category) {
           id
           name
           ${section !== 'stickers' ? 'description' : ''}
@@ -57,7 +71,7 @@ class Section extends Component {
       }
     `,
       fetchPolicy: 'network-only',
-      variables: { skip, limit }
+      variables: { skip, limit, category }
     });
 
     if (reset) {
@@ -73,16 +87,15 @@ class Section extends Component {
   }
 
   fetchMore() {
-    const { match: { params: { section } } } = this.props;
+    const { match: { params: { section, category } } } = this.props;
     const { quantity } = this.state;
-    this.getProducts(section, false, quantity, sum);
+    this.getProducts(section, category, false, quantity, sum);
     this.setState({ quantity: quantity + sum });
   }
 
   render() {
     const { translate, match: { params: { section } } } = this.props;
     const { products, showMoreButton } = this.state;
-    console.log(this.state.quantity);
 
     if (!section) {
       return <div>404</div>;
@@ -91,13 +104,18 @@ class Section extends Component {
     return (
       <div className="container home">
         <h2>{translate(section)}</h2>
+        <h3 style={{ marginTop: 5, marginBottom: 20, fontSize: 16 }}>
+          Category name
+        </h3>
 
         <HomeSection products={products} stickers={section === 'stickers'} />
         {showMoreButton && (
           <div
             style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
           >
-            <button onClick={() => this.fetchMore()}>More</button>
+            <button onClick={() => this.fetchMore()}>
+              {translate('more')}
+            </button>
           </div>
         )}
       </div>

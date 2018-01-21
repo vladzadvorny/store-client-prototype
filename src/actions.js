@@ -18,3 +18,10 @@ export const refetchInterface = () => ({
 export const refetchProducts = () => ({
   type: REFETCH_PRODUCTS
 });
+
+// category
+export const NEW_CATEGORY = 'NEW_CATEGORY';
+export const newCategory = category => ({
+  type: NEW_CATEGORY,
+  category
+});

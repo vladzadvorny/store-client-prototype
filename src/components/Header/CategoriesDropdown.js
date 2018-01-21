@@ -7,6 +7,8 @@ import findIndex from 'lodash.findindex';
 import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
 
+import { newCategory } from '../../actions';
+
 const categoriesQuery = gql`
   query($type: TypeEnum!) {
     categories(type: $type) {
@@ -64,18 +66,19 @@ class CategoryDropdown extends Component {
 
   render() {
     const { show, data } = this.state;
-    const { section, category, translate } = this.props;
+    const { section, category, translate, NewCategory } = this.props;
 
     let categoryName = '';
     if (category) {
       try {
-        categoryName =
-          data.length === 0
-            ? null
-            : data[findIndex(data, ['url', category])].name;
+        const objCategory = data[findIndex(data, ['url', category])];
+        categoryName = data.length === 0 ? null : objCategory.name;
+        NewCategory(objCategory);
       } catch (error) {
         categoryName = 'noname';
       }
+    } else {
+      NewCategory({ id: '', name: '' });
     }
 
     return (
@@ -112,7 +115,9 @@ const mapStateToProps = state => ({
   translate: getTranslate(state.locale)
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  NewCategory: newCategory
+};
 
 export default compose(
   withApollo,

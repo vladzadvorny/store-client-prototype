@@ -7,7 +7,7 @@ import Plane from '../Plane';
 import { filesUrl } from '../../config';
 
 const Section = ({ translate, products, stickers }) => {
-  if (products.length === 0) {
+  if (Array.isArray(products) && products.length === 0) {
     return 'no';
   }
 

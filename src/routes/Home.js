@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
 
 import Section from '../components/Home/Section';
+import Loading from '../components/Loading';
+
 import {
   BotsQuery,
   ChannelsQuery,
@@ -29,21 +31,21 @@ class Home extends Component {
       stickersQuery,
       translate
     } = this.props;
-    // if (
-    //   botsQuery.loading ||
-    //   channelsQuery.loading ||
-    //   groupsQuery.loading ||
-    //   stickersQuery.loading
-    // ) {
-    //   return null;
-    // }
+    if (
+      botsQuery.loading ||
+      channelsQuery.loading ||
+      groupsQuery.loading ||
+      stickersQuery.loading
+    ) {
+      return null;
+    }
 
     return (
       <div className="container home">
         {/* bots */}
         <h2>{translate('bots')}</h2>
         {botsQuery.loading ? (
-          <div className="loading" />
+          <Loading />
         ) : (
           <Section products={botsQuery.bots} />
         )}
@@ -51,7 +53,7 @@ class Home extends Component {
         {/* channels */}
         <h2>{translate('channels')}</h2>
         {channelsQuery.loading ? (
-          <div className="loading" />
+          <Loading />
         ) : (
           <Section products={channelsQuery.channels} />
         )}
@@ -59,7 +61,7 @@ class Home extends Component {
         {/* groups */}
         <h2>{translate('groups')}</h2>
         {groupsQuery.loading ? (
-          <div className="loading" />
+          <Loading />
         ) : (
           <Section products={groupsQuery.groups} />
         )}
@@ -67,7 +69,7 @@ class Home extends Component {
         {/* stickers */}
         <h2>{translate('stickers')}</h2>
         {groupsQuery.loading ? (
-          <div className="loading" />
+          <Loading />
         ) : (
           <Section products={stickersQuery.stickers} stickers />
         )}

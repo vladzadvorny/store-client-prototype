@@ -38,6 +38,7 @@ export default {
     'حذف',
     '지우다'
   ],
+  more: ['More', 'Ещё', 'Plus', 'Más', 'Mehr', 'أكثر من', '더'],
   // Header
   signIn: [
     'Sign In',
