@@ -9,6 +9,7 @@ import Section from './Section';
 import Add from './Add';
 import My from './My';
 import Edit from './Edit';
+import Product from './Product';
 
 export default () => (
   <div className="app">
@@ -20,6 +21,7 @@ export default () => (
         <Route path="/my" component={My} />
         <Route path="/edit" component={Edit} />
         <Route path="/admin" component={Admin} />
+        <Route path="/product/:id" component={Product} />
         <Route path="/:section/:category?" exact component={Section} />
       </Switch>
     </div>

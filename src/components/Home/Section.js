@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
+import { Link } from 'react-router-dom';
 
 import Stars from './Stars';
 import Plane from '../Plane';
@@ -15,7 +16,9 @@ const Section = ({ translate, products, stickers }) => {
     <div className="home-section">
       {products.map(product => (
         <div key={product.id} className="item">
-          <h4>{product.name}</h4>
+          <Link className="title" to={`/product/${product.id}`}>
+            {product.name}
+          </Link>
           {!stickers && (
             <div className="description">
               <div className="shadow" />
